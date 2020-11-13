@@ -6,29 +6,16 @@
   android:layout_height="match_parent"
   tools:context=".MainActivity">
 
-  <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="testing git commit - from dennis"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
 
-    />
 
   <Button
     android:id="@+id/button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:text="Button" />
+    android:text="Map Activity"
+    android:onClick="openMapAct" />
 
-  <ImageView
-      android:id="@+id/imageView"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
-      tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 
 </LinearLayout>
