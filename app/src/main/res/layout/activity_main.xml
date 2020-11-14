@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/signIn"
+        android:id="@+id/signInButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="272dp"
@@ -74,7 +74,7 @@
         android:gravity="right"
         android:text="New?\nGet Started!"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/signIn"
+        app:layout_constraintBottom_toTopOf="@+id/signInButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
@@ -112,10 +112,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signIn" />
+        app:layout_constraintTop_toBottomOf="@+id/signInButton" />
 
     <TextView
-        android:id="@+id/forgetPassword"
+        android:id="@+id/forgetPasswordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -132,48 +132,48 @@
         android:text="or sign in with"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forgetPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/forgetPasswordTextView" />
 
     <ImageView
-        android:id="@+id/googleImage"
+        android:id="@+id/googleLogo"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="8dp"
         android:padding="3dp"
-        app:layout_constraintEnd_toStartOf="@+id/facebookImage"
+        app:layout_constraintEnd_toStartOf="@+id/facebookLogo"
         app:layout_constraintHorizontal_bias="0.838"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orSignInWithText"
         app:srcCompat="@drawable/google_logo" />
 
     <ImageView
-        android:id="@+id/facebookImage"
+        android:id="@+id/facebookLogo"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"
         android:padding="3dp"
-        app:layout_constraintEnd_toStartOf="@+id/twitterImage"
+        app:layout_constraintEnd_toStartOf="@+id/twitterLogo"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/googleImage"
+        app:layout_constraintStart_toEndOf="@+id/googleLogo"
         app:layout_constraintTop_toBottomOf="@+id/orSignInWithText"
         app:srcCompat="@drawable/facebook_logo" />
 
     <ImageView
-        android:id="@+id/twitterImage"
+        android:id="@+id/twitterLogo"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:padding="3dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+        app:layout_constraintEnd_toStartOf="@+id/githubLogo"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/facebookImage"
+        app:layout_constraintStart_toEndOf="@+id/facebookLogo"
         app:layout_constraintTop_toBottomOf="@+id/orSignInWithText"
         app:srcCompat="@drawable/twitter_logo" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/githubLogo"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"
@@ -183,7 +183,7 @@
         android:padding="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/twitterImage"
+        app:layout_constraintStart_toEndOf="@+id/twitterLogo"
         app:layout_constraintTop_toBottomOf="@+id/orSignInWithText"
         app:srcCompat="@drawable/github_icon" />
 
