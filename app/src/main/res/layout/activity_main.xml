@@ -20,7 +20,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:onClick="openSignUpActivity"
-      android:text="Sign Activity" />
+      android:text="Sign Up Activity" />
 
 
 </LinearLayout>
