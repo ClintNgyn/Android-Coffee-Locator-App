@@ -3,6 +3,7 @@ package com.example.androidfinalprojectcoffeeapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -52,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+            
             }
         });
 
@@ -121,11 +122,17 @@ public class SignUpActivity extends AppCompatActivity {
                 email.setText("");
                 pass.setText("");
                 Toast.makeText(SignUpActivity.this, "Success in Registering", Toast.LENGTH_SHORT).show();
+
+                //redirect to login page but for now in the main activity TO PREVENT FROM USING THE SAME USSERNAME AND PASSWORD****
+                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+
                 //redirect to login page*********
 
             }
         });
     }
+
+
     public static String byteArrayToString(byte[] bytes) {
         StringBuilder buffer = new StringBuilder();
         for (byte aByte : bytes) {
