@@ -9,4 +9,14 @@
   <color name="white">#FFFFFFFF</color>
   <color name="gray2">#C46C706F</color>
   <color name="gray1">#C46C706F</color>
+
+  <!-- color theme -->
+  <color name="blue1">#323C46</color>
+  <color name="blue2">#6999A2</color>
+  <color name="blue3">#D5E9F2</color>
+  <color name="blue4">#639B98</color>
+  <color name="red1">#29AACA</color>
+  <color name="bg_color">#EEF0F2</color>
+  <color name="red2">#FD5F56</color>
+
 </resources>
