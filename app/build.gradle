@@ -56,4 +56,7 @@ dependencies {
 
     //google play services
     implementation 'com.google.android.gms:play-services:12.0.1'
+
+    //circle images
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
