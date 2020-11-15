@@ -77,8 +77,9 @@ public class SignUpActivity extends AppCompatActivity {
         
         if (!checker.checkLettersOnly(fName.getText().toString()) || !checker.checkLettersOnly(lName.getText().toString())) {
           Toast.makeText(SignUpActivity.this, "Please Enter valid Names, only letters", Toast.LENGTH_SHORT).show();
-          fName.setText("");
-          lName.setText("");
+          fName.setError("Invalid First Name");
+          fName.requestFocus();
+          lName.setError("Invalid Last Name");
           return;
         }
         //********************************************************************************************
@@ -87,32 +88,31 @@ public class SignUpActivity extends AppCompatActivity {
         
         //check valid username
         if (!checker.checkLettersNumbersOnly(user.getText().toString())) {
-          Toast.makeText(SignUpActivity.this, "Please Enter valid username, only letter and numbers", Toast.LENGTH_SHORT).show();
-          user.setText("");
+          user.setError("Invalid Username");
+          user.requestFocus();
           return;
         }
         
         //check valid email
         if (!checker.checkEmail(email.getText().toString())) {
-          Toast.makeText(SignUpActivity.this, "Please Enter a valid Email", Toast.LENGTH_SHORT).show();
-          email.setText("");
+          email.setError("Invalid Username");
+          email.requestFocus();
           return;
         }
         
         //check valid password
         if (!checker.checkPassword(pass.getText().toString())) {
-          Toast.makeText(SignUpActivity.this,
-                         "Please Enter valid password, at least 8 characters, one number, one capital letter, no symbols",
-                         Toast.LENGTH_SHORT).show();
-          pass.setText("");
+
+          pass.setError("Invalid Password");
+          pass.requestFocus();
           return;
         }
         
         //check unique username
         for (String str : users) {
           if (str.equals(user.getText().toString())) {
-            Toast.makeText(SignUpActivity.this, "Username has already been taken", Toast.LENGTH_SHORT).show();
-            user.setText("");
+            user.setError("Invalid Username");
+            user.requestFocus();
             return;
           }
         }
@@ -120,8 +120,8 @@ public class SignUpActivity extends AppCompatActivity {
         //check unique email
         for (String str : emails) {
           if (str.equals(email.getText().toString())) {
-            Toast.makeText(SignUpActivity.this, "Email has already been taken", Toast.LENGTH_SHORT).show();
-            email.setText("");
+            email.setError("Invalid Email");
+            email.requestFocus();
             return;
           }
         }
@@ -167,7 +167,7 @@ public class SignUpActivity extends AppCompatActivity {
    * @param temp
    * @return
    */
-  private static String SHA1(String temp) {
+  public static String SHA1(String temp) {
     try {
       MessageDigest md = MessageDigest.getInstance("SHA-1");
       md.update(temp.getBytes("UTF-8"));

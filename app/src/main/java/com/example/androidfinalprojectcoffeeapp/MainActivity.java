@@ -9,7 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     ImageView facebookLogo;
     ImageView twitterLogo;
     ImageView githubLogo;
+
+    private DatabaseReference mDatabaseRef;
+    private ArrayList<String> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,24 +59,48 @@ public class MainActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(v -> openSignUpActivity());
 
         loginButton.setOnClickListener(v -> validateLoginInfo());
+        users = new ArrayList<>();
 
+        FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot d : snapshot.getChildren()) {
+                    users.add(String.valueOf(d.child("username").getValue()));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void validateLoginInfo() {
         String username = usernameInput.getText().toString();
         String password = passwordInput.getText().toString();
-        boolean isValid = true;
-        if (username.isEmpty()) {
-            Toast.makeText(this, "Username cannot be empty", Toast.LENGTH_SHORT);
-            isValid = false;
+
+        for(int c = 0; c < users.size(); c++){
+            if(username.equals(users.get(c))){
+                FirebaseDatabase.getInstance().getReference("users").child(users.get(c)).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(String.valueOf(snapshot.child("password").getValue()).equals(SignUpActivity.SHA1(password))){
+                            openMapAct();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
         }
-        else if (password.isEmpty()) {
-            Toast.makeText(this, "Username cannot be empty", Toast.LENGTH_SHORT);
-            isValid = false;
-        }
-        if (isValid) {
-            openMapAct();
-        }
+        usernameInput.setError("Invalid Username or Password");
+        usernameInput.requestFocus();
+        passwordInput.setError("Invalid Username or Password");
     }
 
     public void openMapAct() {
