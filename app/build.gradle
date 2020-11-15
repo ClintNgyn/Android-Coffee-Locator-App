@@ -41,9 +41,20 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    //firebase
+    //multidex
+    implementation 'com.android.support:multidex:1.0.3'
+
+    //firebase database
     implementation 'com.google.firebase:firebase-database:19.5.1'
+
+    //firebase authentication
     implementation 'com.google.firebase:firebase-auth:20.0.1'
+
+    //firebase core
+    implementation 'com.google.firebase:firebase-core:18.0.0'
+
+    //firebase firestore
+    implementation 'com.google.firebase:firebase-firestore:22.0.0'
 
     //maps
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
@@ -62,3 +73,5 @@ dependencies {
     //circle images
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
+
+apply plugin: 'com.google.gms.google-services'

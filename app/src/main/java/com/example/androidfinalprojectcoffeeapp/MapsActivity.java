@@ -53,8 +53,6 @@ public class MapsActivity extends FragmentActivity {
    */
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    
     isLocationPermissionsGranted = false;
     
     switch (requestCode) {
@@ -63,10 +61,12 @@ public class MapsActivity extends FragmentActivity {
           for (int i = 0; i < grantResults.length; i++) {
             if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
               isLocationPermissionsGranted = false;
-              break;
+              return;
             }
           }
           isLocationPermissionsGranted = true;
+  
+          //init map
           initMap();
         }
       }
