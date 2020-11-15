@@ -10,7 +10,7 @@
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="signInWith">or sign in with</string>
-    <string name="newGetStartedNow">New?<br/>Get Started!</string>
+    <string name="newGetStartedNow">New? Get Started!</string>
     <string name="coffeeLocator">Coffee Locator</string>
     <string name="aNewWeek">A new experience every week</string>
 </resources>
