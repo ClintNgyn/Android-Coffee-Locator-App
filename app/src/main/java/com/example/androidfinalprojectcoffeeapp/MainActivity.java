@@ -35,9 +35,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView twitterLogo;
     ImageView githubLogo;
 
-    private DatabaseReference mDatabaseRef;
     private ArrayList<String> users;
-
+    private boolean isValid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,13 +78,14 @@ public class MainActivity extends AppCompatActivity {
     public void validateLoginInfo() {
         String username = usernameInput.getText().toString();
         String password = passwordInput.getText().toString();
-
+        isValid = false;
         for(int c = 0; c < users.size(); c++){
             if(username.equals(users.get(c))){
                 FirebaseDatabase.getInstance().getReference("users").child(users.get(c)).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(String.valueOf(snapshot.child("password").getValue()).equals(SignUpActivity.SHA1(password))){
+                            isValid = true;
                             openMapAct();
                         }
                     }
@@ -98,9 +98,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-        usernameInput.setError("Invalid Username or Password");
-        usernameInput.requestFocus();
-        passwordInput.setError("Invalid Username or Password");
+        if(!isValid){
+            usernameInput.setError("Invalid Username or Password");
+            usernameInput.requestFocus();
+            passwordInput.setError("Invalid Username or Password");
+        }
     }
 
     public void openMapAct() {
