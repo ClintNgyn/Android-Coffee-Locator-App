@@ -35,9 +35,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView twitterLogo;
     ImageView githubLogo;
 
-    private DatabaseReference mDatabaseRef;
-    private ArrayList<String> users;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,13 +56,23 @@ public class MainActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(v -> openSignUpActivity());
 
         loginButton.setOnClickListener(v -> validateLoginInfo());
-        users = new ArrayList<>();
 
-        FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
+    }
+
+    public void validateLoginInfo() {
+        String username = usernameInput.getText().toString();
+        String password = passwordInput.getText().toString();
+        //check if username and password combination in the database
+        FirebaseDatabase.getInstance().getReference("users").child(username).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot d : snapshot.getChildren()) {
-                    users.add(String.valueOf(d.child("username").getValue()));
+                if(String.valueOf(snapshot.child("password").getValue()).equals(SignUpActivity.SHA1(password))){
+                    startActivity(new Intent(MainActivity.this, MapsActivity.class));
+                }
+                else{
+                    usernameInput.setError("Invalid Username or Password");
+                    usernameInput.requestFocus();
+                    passwordInput.setError("Invalid Username or Password");
                 }
             }
 
@@ -76,36 +83,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void validateLoginInfo() {
-        String username = usernameInput.getText().toString();
-        String password = passwordInput.getText().toString();
-
-        for(int c = 0; c < users.size(); c++){
-            if(username.equals(users.get(c))){
-                FirebaseDatabase.getInstance().getReference("users").child(users.get(c)).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(String.valueOf(snapshot.child("password").getValue()).equals(SignUpActivity.SHA1(password))){
-                            openMapAct();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-            }
-        }
-        usernameInput.setError("Invalid Username or Password");
-        usernameInput.requestFocus();
-        passwordInput.setError("Invalid Username or Password");
-    }
-
-    public void openMapAct() {
-        startActivity(new Intent(this, MapsActivity.class));
-    }
 
     public void openSignUpActivity() {
         startActivity(new Intent(this, SignUpActivity.class));
