@@ -13,4 +13,10 @@
     android:layout_width="match_parent"
     android:layout_height="550dp"
     tools:context=".MapsActivity" />
+  <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="goToProfile"
+      android:onClick="goToProfile"
+      />
 </RelativeLayout>
