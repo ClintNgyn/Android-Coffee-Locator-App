@@ -132,7 +132,7 @@ public class SignUpActivity extends AppCompatActivity {
         
         User uploadUser = new User(fName.getText().toString(), lName.getText().toString(), user.getText().toString(),
                                    email.getText().toString(), SHA1(pass.getText().toString()),
-                                   "https://vigyanprasar.gov.in/wp-content/uploads/2016/02/dummy-avatar.png");
+                                   "https://vistapointe.net/images/stick-man-1.jpg");
         String uploadId = mDatabaseRef.push().getKey();
         mDatabaseRef.child(user.getText().toString()).setValue(uploadUser);
         fName.setText("");
