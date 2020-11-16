@@ -2,6 +2,8 @@ package com.example.androidfinalprojectcoffeeapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,11 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView facebookLogo;
     ImageView twitterLogo;
     ImageView githubLogo;
+
+    ImageView showPasswordImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +54,23 @@ public class MainActivity extends AppCompatActivity {
         twitterLogo = findViewById(R.id.twitterLogo);
         githubLogo = findViewById(R.id.githubLogo);
 
+        showPasswordImage = findViewById(R.id.showPasswordImage);
+
         signUpButton.setOnClickListener(v -> openSignUpActivity());
 
         loginButton.setOnClickListener(v -> validateLoginInfo());
 
+        showPasswordImage.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    passwordInput.setInputType(InputType.TYPE_CLASS_TEXT);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    break;
+            }
+            return true;
+        });
     }
 
     public void validateLoginInfo() {
@@ -66,10 +80,9 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference("users").child(username).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(String.valueOf(snapshot.child("password").getValue()).equals(SignUpActivity.SHA1(password))){
+                if (String.valueOf(snapshot.child("password").getValue()).equals(SignUpActivity.SHA1(password))) {
                     startActivity(new Intent(MainActivity.this, MapsActivity.class));
-                }
-                else{
+                } else {
                     usernameInput.setError("Invalid Username or Password");
                     usernameInput.requestFocus();
                     passwordInput.setError("Invalid Username or Password");
