@@ -1,22 +1,17 @@
 package com.example.androidfinalprojectcoffeeapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.EdgeEffect;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,7 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
@@ -36,7 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
     CircleImageView profile_pic;
-    private static final int PICK_IMAGE_REQUEST= 1;
+    private static final int PICK_IMAGE_REQUEST = 1;
     private Uri mImageUri;
     private String currentUser;
     private EditText firstName, lastName, username, email;
@@ -44,6 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
     private String fName, lName, Email, user, password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
                 fName = String.valueOf(snapshot.child("fName").getValue());
                 lName = String.valueOf(snapshot.child("lName").getValue());
                 Email = String.valueOf(snapshot.child("email").getValue());
-                user =  String.valueOf(snapshot.child("username").getValue());
+                user = String.valueOf(snapshot.child("username").getValue());
                 password = String.valueOf(snapshot.child("password").getValue());
 
                 firstName.setText(fName);
@@ -86,7 +81,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openFileChooser();
-               // startActivity(new Intent(ProfileActivity.this, temporary.class));
+                // startActivity(new Intent(ProfileActivity.this, temporary.class));
             }
         });
 
@@ -101,11 +96,11 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                         Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
-                        while(!uri.isComplete());
+                        while (!uri.isComplete());
                         Uri url = uri.getResult();
 
                         //update change this one
-                        User uploadUser = new User(fName, lName, user, Email, password, ""+url);
+                        User uploadUser = new User(fName, lName, user, Email, password, "" + url);
                         String uploadId = mDatabaseRef.push().getKey();
                         mDatabaseRef.child(currentUser).setValue(uploadUser);
                         //FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("imageUrl");//.child(currentUser).child("imageUrl").setValue(url);
@@ -115,11 +110,11 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                     }
                 });
-
             }
         });
     }
-    private void openFileChooser(){
+
+    private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -129,9 +124,9 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE_REQUEST){
+        if (requestCode == PICK_IMAGE_REQUEST) {
             //if we actually get something back
-            if(data !=null && data.getData() != null){
+            if (data != null && data.getData() != null) {
                 mImageUri = data.getData();
                 Picasso.get().load(mImageUri).into(profile_pic);
                 saveImage.setVisibility(View.VISIBLE);
@@ -139,7 +134,8 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
     }
-    private String getFileExtension(Uri uri){
+
+    private String getFileExtension(Uri uri) {
         ContentResolver cr = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(uri));
