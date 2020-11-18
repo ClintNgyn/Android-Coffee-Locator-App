@@ -68,7 +68,6 @@ public class ProfileActivity extends AppCompatActivity {
                 username.setText(user);
                 email.setText(Email);
                 Picasso.get().load(String.valueOf(snapshot.child("imageUrl").getValue())).into(profile_pic);
-
             }
 
             @Override
@@ -77,40 +76,28 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        profile_pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openFileChooser();
-                // startActivity(new Intent(ProfileActivity.this, temporary.class));
-            }
+        profile_pic.setOnClickListener(view -> {
+            openFileChooser();
+            // startActivity(new Intent(ProfileActivity.this, temporary.class));
         });
 
-        saveImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveImage.setVisibility(View.INVISIBLE);
-                saveImage.setEnabled(false);
-                StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
-                fileReference.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+        saveImage.setOnClickListener(view -> {
+            saveImage.setVisibility(View.INVISIBLE);
+            saveImage.setEnabled(false);
+            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
+            fileReference.putFile(mImageUri).addOnSuccessListener(taskSnapshot -> {
 
-                        Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
-                        while (!uri.isComplete());
-                        Uri url = uri.getResult();
+                Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                while (!uri.isComplete()) ;
+                Uri url = uri.getResult();
 
-                        //update change this one
-                        User uploadUser = new User(fName, lName, user, Email, password, "" + url);
-                        String uploadId = mDatabaseRef.push().getKey();
-                        mDatabaseRef.child(currentUser).setValue(uploadUser);
-                        //FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("imageUrl");//.child(currentUser).child("imageUrl").setValue(url);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                    }
-                });
-            }
+                //update change this one
+                User uploadUser = new User(fName, lName, user, Email, password, "" + url);
+                String uploadId = mDatabaseRef.push().getKey();
+                mDatabaseRef.child(currentUser).setValue(uploadUser);
+                //FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("imageUrl");//.child(currentUser).child("imageUrl").setValue(url);
+            }).addOnFailureListener(e -> {
+            });
         });
     }
 

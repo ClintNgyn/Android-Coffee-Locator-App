@@ -8,7 +8,6 @@ public class InputChecker {
                 return true;
             }
         }
-
         return false;
     }
 

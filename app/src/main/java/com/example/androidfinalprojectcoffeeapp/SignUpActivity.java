@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.security.MessageDigest;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Locale;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -29,8 +29,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     private InputChecker checker;
 
-    private ArrayList<String> emails;
-    private ArrayList<String> users;
+    private HashSet<String> emails;
+    private HashSet<String> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         //init global vars
         checker = new InputChecker();
-        emails = new ArrayList<>();
-        users = new ArrayList<>();
+        emails = new HashSet<>();
+        users = new HashSet<>();
 
         //get list of users and emails from firebase
         FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
@@ -67,84 +67,74 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
         //register onclick handler
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //for now toast message,****************
-                //to do  putlabel if invalid inputs****************
-                //red border color****************
-                mDatabaseRef = FirebaseDatabase.getInstance().getReference("users");
+        register.setOnClickListener(view -> {
+            //for now toast message,****************
+            //to do putlabel if invalid inputs****************
+            //red border color****************
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference("users");
 
-                if (!checker.checkLettersOnly(fName.getText().toString()) || !checker.checkLettersOnly(lName.getText().toString())) {
-                    Toast.makeText(SignUpActivity.this, "Please Enter valid Names, only letters", Toast.LENGTH_SHORT).show();
-                    fName.setError("Invalid First Name");
-                    fName.requestFocus();
-                    lName.setError("Invalid Last Name");
-                    return;
-                }
-                //********************************************************************************************
-                //********************************************************************************************
-                //NOT FINISHED have to check if email is really legit
-
-                //check valid username
-                if (!checker.checkLettersNumbersOnly(user.getText().toString())) {
-                    user.setError("Invalid Username");
-                    user.requestFocus();
-                    return;
-                }
-
-                //check valid email
-                if (!checker.checkEmail(email.getText().toString())) {
-                    email.setError("Invalid Username");
-                    email.requestFocus();
-                    return;
-                }
-
-                //check valid password
-                if (!checker.checkPassword(pass.getText().toString())) {
-                    pass.setError("Invalid Password");
-                    pass.requestFocus();
-                    return;
-                }
-
-                //check unique username
-                for (String str : users) {
-                    if (str.equals(user.getText().toString())) {
-                        user.setError("Invalid Username");
-                        user.requestFocus();
-                        return;
-                    }
-                }
-
-                //check unique email
-                for (String str : emails) {
-                    if (str.equals(email.getText().toString())) {
-                        email.setError("Invalid Email");
-                        email.requestFocus();
-                        return;
-                    }
-                }
-
-                //new user success
-                //I made a class jsut so the codes look neat. and to make sure that no meta data that will be forgotten
-                //temporary profile pic url https://vigyanprasar.gov.in/wp-content/uploads/2016/02/dummy-avatar.png
-
-                User uploadUser = new User(fName.getText().toString(), lName.getText().toString(), user.getText().toString(), email.getText().toString(), SHA1(pass.getText().toString()), "https://vistapointe.net/images/stick-man-1.jpg");
-                String uploadId = mDatabaseRef.push().getKey();
-                mDatabaseRef.child(user.getText().toString()).setValue(uploadUser);
-                fName.setText("");
-                lName.setText("");
-                user.setText("");
-                email.setText("");
-                pass.setText("");
-                Toast.makeText(SignUpActivity.this, "Success in Registering", Toast.LENGTH_SHORT).show();
-
-                //redirect to login page but for now in the main activity TO PREVENT FROM USING THE SAME USERNAME AND PASSWORD****
-                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-
-                //redirect to login page*********
-
+            if (!checker.checkLettersOnly(fName.getText().toString()) || !checker.checkLettersOnly(lName.getText().toString())) {
+                Toast.makeText(SignUpActivity.this, "Please Enter valid Names, only letters", Toast.LENGTH_SHORT).show();
+                fName.setError("Invalid First Name");
+                fName.requestFocus();
+                lName.setError("Invalid Last Name");
+                return;
             }
+            //NOT FINISHED have to check if email is really legit
+
+            //check valid username
+            if (!checker.checkLettersNumbersOnly(user.getText().toString())) {
+                user.setError("Invalid Username");
+                user.requestFocus();
+                return;
+            }
+
+            //check valid email
+            if (!checker.checkEmail(email.getText().toString())) {
+                email.setError("Invalid Email");
+                email.requestFocus();
+                return;
+            }
+
+            //check valid password
+            if (!checker.checkPassword(pass.getText().toString())) {
+                pass.setError("Password must have\n-One capital\n-One number\n-No special characters such as !,%,?");
+                pass.requestFocus();
+                return;
+            }
+
+            //check unique username
+            if (users.contains(user.getText().toString())) {
+                user.setError("This username is already taken by a user");
+                user.requestFocus();
+                return;
+            }
+
+            //check unique email
+            if (emails.contains(email.getText().toString())) {
+                email.setError("This email is already taken by a user");
+                email.requestFocus();
+                return;
+            }
+
+            //new user success
+            //I made a class just so the codes look neat. and to make sure that no meta data that will be forgotten
+            //temporary profile pic url https://vigyanprasar.gov.in/wp-content/uploads/2016/02/dummy-avatar.png
+
+            User uploadUser = new User(fName.getText().toString(), lName.getText().toString(), user.getText().toString(), email.getText().toString(), SHA1(pass.getText().toString()), "https://vistapointe.net/images/stick-man-1.jpg");
+            String uploadId = mDatabaseRef.push().getKey();
+            mDatabaseRef.child(user.getText().toString()).setValue(uploadUser);
+            fName.setText("");
+            lName.setText("");
+            user.setText("");
+            email.setText("");
+            pass.setText("");
+            Toast.makeText(SignUpActivity.this, "Success in Registering", Toast.LENGTH_SHORT).show();
+
+            //redirect to login page but for now in the main activity TO PREVENT FROM USING THE SAME USERNAME AND PASSWORD****
+            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+
+            //redirect to login page*********
         });
     }
 
@@ -174,5 +164,4 @@ public class SignUpActivity extends AppCompatActivity {
             return null;
         }
     }
-
 }
