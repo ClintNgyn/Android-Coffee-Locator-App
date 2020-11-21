@@ -8,6 +8,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,15 +30,16 @@ import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
-    CircleImageView profile_pic;
+    private CircleImageView profile_pic;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri mImageUri;
     private String currentUser;
     private EditText firstName, lastName, username, email;
-    private Button saveImage;
+    private Button saveImage, saveNames;
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
-    private String fName, lName, Email, user, password;
+    private String fName, lName, Email, user, password, URL;
+    private ImageView edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class ProfileActivity extends AppCompatActivity {
         lastName = findViewById(R.id.profile_last_name);
         username = findViewById(R.id.profile_username);
         email = findViewById(R.id.profile_email);
+        edit = findViewById(R.id.profile_editnames);
+        saveNames = findViewById(R.id.profile_saveNames);
         saveImage = findViewById(R.id.profile_saveImage);
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         //get current user
@@ -62,6 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Email = String.valueOf(snapshot.child("email").getValue());
                 user = String.valueOf(snapshot.child("username").getValue());
                 password = String.valueOf(snapshot.child("password").getValue());
+                URL = String.valueOf(snapshot.child("imageUrl").getValue());
 
                 firstName.setText(fName);
                 lastName.setText(lName);
@@ -95,9 +100,35 @@ public class ProfileActivity extends AppCompatActivity {
                 User uploadUser = new User(fName, lName, user, Email, password, "" + url);
                 String uploadId = mDatabaseRef.push().getKey();
                 mDatabaseRef.child(currentUser).setValue(uploadUser);
+                URL = "" + url;
                 //FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("imageUrl");//.child(currentUser).child("imageUrl").setValue(url);
             }).addOnFailureListener(e -> {
             });
+        });
+
+        saveNames.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User uploadUser = new User(firstName.getText().toString(), lastName.getText().toString(), user, Email, password, URL);
+                mDatabaseRef.child(currentUser).setValue(uploadUser);
+                firstName.setEnabled(false);
+                lastName.setEnabled(false);
+                saveNames.setEnabled(false);
+                saveNames.setVisibility(View.INVISIBLE);
+                edit.setEnabled(true);
+                edit.setVisibility(View.VISIBLE);
+            }
+        });
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firstName.setEnabled(true);
+                lastName.setEnabled(true);
+                saveNames.setEnabled(true);
+                saveNames.setVisibility(View.VISIBLE);
+                edit.setVisibility(View.INVISIBLE);
+                edit.setEnabled(false);
+            }
         });
     }
 
@@ -118,6 +149,8 @@ public class ProfileActivity extends AppCompatActivity {
                 Picasso.get().load(mImageUri).into(profile_pic);
                 saveImage.setVisibility(View.VISIBLE);
                 saveImage.setEnabled(true);
+                edit.setVisibility(View.INVISIBLE);
+                edit.setEnabled(false);
             }
         }
     }

@@ -18,7 +18,7 @@
         android:id="@+id/profile_image"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="5"
         android:src="@drawable/ic_baseline_person_24"></de.hdodenhof.circleimageview.CircleImageView>
 
     <Button
@@ -34,16 +34,27 @@
         android:textColor="@color/red1"
         android:visibility="invisible" />
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="15dp"
-        android:layout_weight="4"
+        android:layout_weight="7"
         android:alpha=".90"
         android:background="@color/black"
         android:orientation="vertical"
-        android:padding="30dp">
-
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
+        android:paddingBottom="20dp"
+        >
+        <ImageView
+            android:id="@+id/profile_editnames"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+            android:src="@drawable/edit"
+            android:padding="10dp"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -121,9 +132,21 @@
                 android:textColor="@color/white" />
         </androidx.cardview.widget.CardView>
     </LinearLayout>
+    <Button
+        android:id="@+id/profile_saveNames"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="right"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:enabled="false"
+        android:padding="0dp"
+        android:text="@string/saveChanges"
+        android:textColor="@color/red1"
+        android:visibility="invisible" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2" />
+        android:layout_weight="1" />
 </LinearLayout>
