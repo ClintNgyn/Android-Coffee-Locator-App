@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (String.valueOf(snapshot.child("password").getValue()).equals(SignUpActivity.SHA1(password))) {
-                    Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                    Intent intent = new Intent(MainActivity.this, MapsActivity2.class);
                     intent.putExtra("username", username);
                     startActivity(intent);
                 } else {

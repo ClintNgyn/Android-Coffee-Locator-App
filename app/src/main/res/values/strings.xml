@@ -14,4 +14,6 @@
     <string name="coffeeLocator">Coffee Locator</string>
     <string name="aNewWeek">A new experience every week</string>
     <string name="saveNewProileImage">Save New Profile Image ?</string>
+    <string name="title_activity_maps2">Map</string>
+    <string name="saveChanges">Save Changes?</string>
 </resources>
