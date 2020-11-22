@@ -1,6 +1,5 @@
 package com.example.androidfinalprojectcoffeeapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,19 +24,14 @@ public class HomeScreenBottomNav extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         communicator = (communicator) getActivity();
-        mapButton = (ImageButton) getActivity().findViewById(R.id.mapButton);
+        mapButton = getActivity().findViewById(R.id.mapButton);
         mapButton.setOnClickListener(v -> communicator.goToMaps());
 
         //Button favoriteListButton = view.findViewById(R.id.favoriteListButton);
 
         //Button settingsButton = view.findViewById(R.id.settingsButton);
 
-        profileButton = (ImageButton) getActivity().findViewById(R.id.profileButton);
+        profileButton = getActivity().findViewById(R.id.profileButton);
         profileButton.setOnClickListener(v -> communicator.goToProfile());
-    }
-
-    public void goToProfile() {
-        Intent intent = new Intent(getActivity(), ProfileActivity.class);
-        startActivity(intent);
     }
 }

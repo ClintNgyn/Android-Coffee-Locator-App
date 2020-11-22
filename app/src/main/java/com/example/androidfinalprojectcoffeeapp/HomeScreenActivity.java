@@ -1,14 +1,12 @@
 package com.example.androidfinalprojectcoffeeapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -55,14 +53,12 @@ public class HomeScreenActivity extends AppCompatActivity implements communicato
     }
 
     public void goToAboutAppActivity() {
-        Intent intent = new Intent(HomeScreenActivity.this, AboutAppActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, AboutAppActivity.class));
     }
 
     @Override
     public void goToMaps() {
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, MapsActivity2.class));
     }
 
     @Override
