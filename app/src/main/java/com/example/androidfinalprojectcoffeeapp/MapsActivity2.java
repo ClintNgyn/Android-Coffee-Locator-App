@@ -1,7 +1,14 @@
 package com.example.androidfinalprojectcoffeeapp;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -9,9 +16,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -25,16 +35,19 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private TextView temp;
     private   List<JSONobjects> jsonObjects;
+    private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
-        temp = findViewById(R.id.map2_temp);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map2);
         mapFragment.getMapAsync(this);
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.npoint.io/").addConverterFactory(GsonConverterFactory.create()).build();
+        recyclerView = findViewById(R.id.maps2_recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         JsonPlaceHolder jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);
         Call<List<JSONobjects>> call = jsonPlaceHolder.getJSONobjects();
         call.enqueue(new Callback<List<JSONobjects>>() {
@@ -46,11 +59,13 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                 }
                 jsonObjects = response.body();
                 LatLng montreal = new LatLng(45.4774675, -73.6080016);
-                //mMap.moveCamera(CameraUpdateFactory.newLatLng(montreal));
+                ArrayList<ExampleItemMaps> list = new ArrayList<>();
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(montreal, 13));
                 for (int c = 0; c < jsonObjects.size(); c++){
                     mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(jsonObjects.get(c).getLat()), Double.parseDouble(jsonObjects.get(c).getLongitude()))).title(jsonObjects.get(c).getType()));
+                    list.add(new ExampleItemMaps(jsonObjects.get(c).getImg(), jsonObjects.get(c).getAddress(), jsonObjects.get(c).getPhonenumber(), jsonObjects.get(c).getType(), jsonObjects.get(c).getLat(), jsonObjects.get(c).getLongitude()));
                 }
+                recyclerView.setAdapter(new AdapterOfMaps(list));
             }
 
             @Override
@@ -72,6 +87,5 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
     }
 }
