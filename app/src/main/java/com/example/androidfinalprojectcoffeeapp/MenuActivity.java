@@ -58,7 +58,7 @@ public class MenuActivity extends AppCompatActivity {
         menuJsonObjsList = response.body();
         
         //display menu items in recycler view
-        displayMenuInRecyclerView();
+        displayMenu();
         
       }
       
@@ -69,7 +69,7 @@ public class MenuActivity extends AppCompatActivity {
     });
   }
   
-  private void displayMenuInRecyclerView() {
+  private void displayMenu() {
     MenuAdapter menuAdapter = new MenuAdapter(this, menuJsonObjsList);
     rvMenuListId.setLayoutManager(new GridLayoutManager(this, 3));
     rvMenuListId.setAdapter(menuAdapter);

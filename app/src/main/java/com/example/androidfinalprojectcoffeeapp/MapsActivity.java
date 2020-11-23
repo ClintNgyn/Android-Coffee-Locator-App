@@ -1,88 +1,102 @@
 package com.example.androidfinalprojectcoffeeapp;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity {
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
   
-  private static final String FINE_LOCATION_PERMISSION = Manifest.permission.ACCESS_FINE_LOCATION;
-  private static final String COARSE_LOCATION_PERMISSION = Manifest.permission.ACCESS_COARSE_LOCATION;
-  private static final int LOCATION_PERMISSION_REQ_CODE = 1234;
+  private GoogleMap mMap;
   
-  private boolean isLocationPermissionsGranted = false;
+  private List<ShopJsonObj> shopJsonObjsList;
   
-  private GoogleMap mGoogleMap;
+  private RecyclerView rvShopsListId;
+  
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_maps);
     
-    getLocationPermission();
+    //link views
+    rvShopsListId = findViewById(R.id.rvShopsListId);
+    
+    // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        .findFragmentById(R.id.map);
+    mapFragment.getMapAsync(this);
+    
+    //get shops from json
+    getShops();
+    
   }
   
-  /**
-   *
-   */
-  private void getLocationPermission() {
-    String[] mPermissions = new String[]{FINE_LOCATION_PERMISSION, COARSE_LOCATION_PERMISSION};
-    
-    //get location permission
-    if ((ContextCompat.checkSelfPermission(this, FINE_LOCATION_PERMISSION) == PackageManager.PERMISSION_GRANTED)
-        && (ContextCompat.checkSelfPermission(this, COARSE_LOCATION_PERMISSION) == PackageManager.PERMISSION_GRANTED)) {
-      isLocationPermissionsGranted = true;
-    } else {
-      ActivityCompat.requestPermissions(this, mPermissions, LOCATION_PERMISSION_REQ_CODE);
-    }
-  }
-  
-  /**
-   * @param requestCode
-   * @param permissions
-   * @param grantResults
-   */
-  @Override
-  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-    isLocationPermissionsGranted = false;
-    
-    switch (requestCode) {
-      case LOCATION_PERMISSION_REQ_CODE: {
-        if (grantResults.length > 0) {
-          for (int i = 0; i < grantResults.length; i++) {
-            if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-              isLocationPermissionsGranted = false;
-              return;
-            }
-          }
-          isLocationPermissionsGranted = true;
-          
-          //init map
-          initMap();
+  private void getShops() {
+    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.npoint.io/")
+                                              .addConverterFactory(GsonConverterFactory.create())
+                                              .build();
+    ShopJsonPlaceHolder shopJsonPlaceHolder = retrofit.create(ShopJsonPlaceHolder.class);
+    Call<List<ShopJsonObj>> call = shopJsonPlaceHolder.locationJsonPlaceHolder();
+    call.enqueue(new Callback<List<ShopJsonObj>>() {
+      @Override
+      public void onResponse(Call<List<ShopJsonObj>> call, Response<List<ShopJsonObj>> response) {
+        if (!response.isSuccessful()) {
+          return;
         }
+        
+        //storing locations in jsonObjectsList
+        shopJsonObjsList = response.body();
+        
+        //adding markers of shops
+        for (ShopJsonObj currShop : shopJsonObjsList) {
+          mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(currShop.getLatitude()),
+                                                                 Double.parseDouble(currShop.getLongitude())))
+                                            .title(currShop.getType()));
+        }
+        
+        //display shops in rvNearYouListId
+        displayShops();
       }
       
-      
-    }
-  }
-  
-  private void initMap() {
-    SupportMapFragment mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-    
-    mapFrag.getMapAsync(new OnMapReadyCallback() {
       @Override
-      public void onMapReady(GoogleMap googleMap) {
-        mGoogleMap = googleMap;
+      public void onFailure(Call<List<ShopJsonObj>> call, Throwable t) {
+      
       }
     });
+  }
+  
+  private void displayShops() {
+    ShopAdapter shopAdapter = new ShopAdapter(this, shopJsonObjsList);
+    rvShopsListId.setLayoutManager(new LinearLayoutManager(this));
+    rvShopsListId.setAdapter(shopAdapter);
+  }
+  
+  /**
+   * Manipulates the map once available.
+   */
+  @Override
+  public void onMapReady(GoogleMap googleMap) {
+    mMap = googleMap;
+    
+    //moving camera to montreal
+    LatLng montreal = new LatLng(45.4774675, -73.6080016);
+    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(montreal, 13f));
   }
 }
