@@ -1,16 +1,20 @@
-package com.example.androidfinalprojectcoffeeapp;
-
 import android.content.Intent;
+
 import android.os.Bundle;
+
 import android.view.MenuItem;
+
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
+
 import androidx.drawerlayout.widget.DrawerLayout;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +24,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -47,7 +52,7 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
-
+      
         Intent intent = getIntent();
         currentUser = intent.getStringExtra("username");
 
@@ -66,7 +71,18 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-
+        
+        //link views
+        temp = findViewById(R.id.map2_temp);
+      
+        menuListBtn = findViewById(R.id.menuListBtn);
+        menuListBtn.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+          }
+        });
+      
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map2);
@@ -82,6 +98,7 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
                 if (!response.isSuccessful()) {
                     return;
                 }
+              
                 jsonObjects = response.body();
                 LatLng montreal = new LatLng(45.4774675, -73.6080016);
                 ArrayList<ExampleItemMaps> list = new ArrayList<>();

@@ -33,6 +33,12 @@
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintHorizontal_bias="0.5"
             map:layout_constraintStart_toStartOf="parent" />
+          
+        <Button
+          android:id="@+id/menuListBtn"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="menuListBtn" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -47,3 +53,5 @@
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
+  
+</LinearLayout>

@@ -46,12 +46,14 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    //firebase
-    implementation 'com.google.firebase:firebase-database:19.5.1'
-    implementation 'com.google.firebase:firebase-auth:20.0.1'
+    //multidex
+    implementation 'com.android.support:multidex:1.0.3'
 
-    //maps
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    //firebase database
+    implementation 'com.google.firebase:firebase-database:19.5.1'
+
+    //firebase authentication
+    implementation 'com.google.firebase:firebase-auth:20.0.1'
 
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -62,7 +64,9 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     //google play services
-    implementation 'com.google.android.gms:play-services:12.0.1'
+    implementation 'com.google.android.gms:play-services-gcm:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
     //circle images
     implementation 'de.hdodenhof:circleimageview:3.1.0'
