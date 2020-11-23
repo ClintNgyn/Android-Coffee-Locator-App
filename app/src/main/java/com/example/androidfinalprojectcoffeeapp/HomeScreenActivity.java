@@ -58,7 +58,9 @@ public class HomeScreenActivity extends AppCompatActivity implements communicato
 
     @Override
     public void goToMaps() {
-        startActivity(new Intent(this, MapsActivity2.class));
+        Intent intent = new Intent(HomeScreenActivity.this, MapsActivity2.class);
+        intent.putExtra("username", currentUser);
+        startActivity(intent);
     }
 
     @Override
