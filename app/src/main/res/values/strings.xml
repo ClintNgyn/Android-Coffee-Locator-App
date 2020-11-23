@@ -1,27 +1,27 @@
 <resources>
-    <string name="app_name">AndroidFinalProjectCoffeeApp</string>
-    <string name="title_activity_maps">Map</string>
-    <string name="SignUp">Sign Up</string>
-    <string name="firstName">First Name</string>
-    <string name="lastName">Last Name</string>
-    <string name="username">Username</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="register">Register</string>
-    <string name="login">Login</string>
-    <string name="signInWith">or sign in with</string>
-    <string name="newGetStartedNow">New? Get Started!</string>
-    <string name="coffeeLocator">Coffee Locator</string>
-    <string name="aNewWeek">A new experience every week</string>
-    <string name="saveNewProileImage">Save New Profile Image ?</string>
-    <string name="title_activity_maps2">Map</string>
-    <string name="saveChanges">Save Changes?</string>
-    <string name="title_activity_testing">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_home_screen">MainActivity</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="app_name">AndroidFinalProjectCoffeeApp</string>
+  <string name="title_activity_maps">Map</string>
+  <string name="SignUp">Sign Up</string>
+  <string name="firstName">First Name</string>
+  <string name="lastName">Last Name</string>
+  <string name="username">Username</string>
+  <string name="email">Email</string>
+  <string name="password">Password</string>
+  <string name="register">Register</string>
+  <string name="login">Login</string>
+  <string name="signInWith">or sign in with</string>
+  <string name="newGetStartedNow">New? Get Started!</string>
+  <string name="coffeeLocator">Coffee Locator</string>
+  <string name="aNewWeek">A new experience every week</string>
+  <string name="saveNewProileImage">Save New Profile Image ?</string>
+  <string name="title_activity_maps2">Map</string>
+  <string name="saveChanges">Save Changes?</string>
+  <string name="title_activity_testing">MainActivity</string>
+  <string name="title_home">Home</string>
+  <string name="title_dashboard">Dashboard</string>
+  <string name="title_notifications">Notifications</string>
+  <string name="title_activity_home_screen">MainActivity</string>
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
