@@ -18,7 +18,6 @@
         app:layout_constraintEnd_toStartOf="@+id/settingsButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/mapButton"
-        app:srcCompat="@drawable/list_vector"
         tools:ignore="VectorDrawableCompat" />
 
     <TextView
@@ -42,7 +41,6 @@
         app:layout_constraintEnd_toStartOf="@+id/favoriteListButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/map_vector"
         tools:ignore="VectorDrawableCompat" />
 
     <TextView
@@ -62,7 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
         android:background="@color/red1"
-        android:src="@drawable/settings_vector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/profileButton"
         app:layout_constraintHorizontal_bias="0.5"
@@ -85,7 +82,6 @@
         android:layout_height="40dp"
         android:layout_marginBottom="28dp"
         android:background="@color/red1"
-        android:src="@drawable/profile_vector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
