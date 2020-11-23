@@ -25,39 +25,36 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
   @Override
   public ViewHolderOfMapsRecyclerView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     LayoutInflater inflater = LayoutInflater.from(context);
-    View view = inflater.inflate(R.layout.recycler_locations_item, parent, false);
+    View view = inflater.inflate(R.layout.recycler_shops_item, parent, false);
     return new ViewHolderOfMapsRecyclerView(view);
   }
   
   @Override
   public void onBindViewHolder(@NonNull ViewHolderOfMapsRecyclerView holder, int position) {
-    //set tvTypeId
-    holder.tvTypeId.setText(list.get(position).getType());
-    
-    //set tvAddressId
-    holder.tvAddressId.setText(list.get(position).getAddress());
-    
-    //set ivFavsId onclick handler
+    ShopJsonObj currShop = list.get(position);
+  
+    // set tvTypeId
+    holder.tvTypeId.setText(currShop.getType());
+  
+    // set tvAddressId
+    holder.tvAddressId.setText(currShop.getAddress());
+  
+    // set ivFavsId onclick handler
     holder.ivFavsId.setOnClickListener((View view) -> {
-      boolean isSavedToFavorites = holder.tvIsSavedToFavorites.getText().toString().equals(R.string._true);
-      
-      //change tvIsSavedToFavorites = !tvIsSavedToFavorites
-      holder.tvIsSavedToFavorites.setText(isSavedToFavorites ? R.string._false : R.string._true);
-      
-      //change color
-      holder.ivFavsId.setImageResource(isSavedToFavorites ? R.drawable.ic_heart_uncolored : R.drawable.ic_heart_colored);
-      
-      //add or remove from saved places
-      if (isSavedToFavorites) {
-        //remove from favorites
-      } else {
-        //add to favorites
-      }
-    });
+      boolean isHeartChecked = currShop.isHeartChecked();
     
-    //set ivInfoBtnId onclick handler
+      // toggle heart
+      holder.ivFavsId.setImageResource(isHeartChecked ? R.drawable.ic_heart_uncolored : R.drawable.ic_heart_colored);
+    
+      // TODO: add or remove from favorite places
+    
+      //set isHeartChecked to !isHeartChecked
+      currShop.setHeartChecked(!isHeartChecked);
+    });
+  
+    // TODO: set ivInfoBtnId onclick handler
     holder.ivInfoBtnId.setOnClickListener((View view) -> {
-      //see detailed view of shop
+      // see detailed view of shop
     });
   }
   
@@ -69,14 +66,13 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
   
   public static class ViewHolderOfMapsRecyclerView extends RecyclerView.ViewHolder {
     private ImageView ivFavsId, ivInfoBtnId;
-    private TextView tvTypeId, tvAddressId, tvIsSavedToFavorites;
+    private TextView tvTypeId, tvAddressId;
     
     private ViewHolderOfMapsRecyclerView(@NonNull View itemView) {
       super(itemView);
       
       //link Views
       ivFavsId = itemView.findViewById(R.id.ivFavsId);
-      tvIsSavedToFavorites = itemView.findViewById(R.id.tvIsSavedToFavorites);
       tvTypeId = itemView.findViewById(R.id.tvTypeId);
       tvAddressId = itemView.findViewById(R.id.tvAddressId);
       ivInfoBtnId = itemView.findViewById(R.id.ivInfoBtnId);

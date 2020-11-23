@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -53,19 +52,8 @@ public class MainActivity extends AppCompatActivity {
    * Validate that the user exists in the database.
    */
   public void validateLoginInfo() {
-    String username = usernameInput.getText().toString();
-    String password = passwordInput.getText().toString();
-    boolean isValid = true;
-    if (username.isEmpty()) {
-      Toast.makeText(this, "Username cannot be empty", Toast.LENGTH_SHORT).show();
-      isValid = false;
-    } else if (password.isEmpty()) {
-      Toast.makeText(this, "Username cannot be empty", Toast.LENGTH_SHORT).show();
-      isValid = false;
-    }
-    if (isValid) {
+      //TODO: validate user and underline error
       openMapAct();
-    }
   }
   
   /**

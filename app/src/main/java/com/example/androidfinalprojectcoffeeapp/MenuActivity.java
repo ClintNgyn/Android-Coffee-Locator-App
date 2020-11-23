@@ -39,7 +39,7 @@ public class MenuActivity extends AppCompatActivity {
   }
   
   /**
-   * Fetch json file with retrofit and add the items to menuJsonObjsList.
+   * Fetch json file with retrofit and add items to menuJsonObjsList.
    */
   private void addItemsToList() {
     Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.npoint.io/")
