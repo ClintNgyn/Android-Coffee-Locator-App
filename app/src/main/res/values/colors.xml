@@ -19,4 +19,11 @@
   <color name="bg_color">#EEF0F2</color>
   <color name="red1">#C62E46</color>
 
+  <!-- menu color theme -->
+  <color name="menuColorPrimary">#03A9F4</color>
+  <color name="menuColorPrimaryDark">#0288D1</color>
+  <color name="menuColorBlack">#2d2d2d</color>
+  <color name="menuColorAccent">#ff4081</color>
+
+
 </resources>

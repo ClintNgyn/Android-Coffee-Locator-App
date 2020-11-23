@@ -1,5 +1,7 @@
 package com.example.androidfinalprojectcoffeeapp;
 
+
+import android.content.Intent;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,8 +11,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,7 +38,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback {
-
     private GoogleMap mMap;
     private TextView temp;
     private   List<JSONobjects> jsonObjects;
@@ -40,6 +46,18 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
+        
+        //link views
+        temp = findViewById(R.id.map2_temp);
+      
+        menuListBtn = findViewById(R.id.menuListBtn);
+        menuListBtn.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+          }
+        });
+      
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map2);
@@ -54,9 +72,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             @Override
             public void onResponse(Call<List<JSONobjects>> call, Response<List<JSONobjects>> response) {
                 if(!response.isSuccessful()){
-
                     return;
                 }
+              
                 jsonObjects = response.body();
                 LatLng montreal = new LatLng(45.4774675, -73.6080016);
                 ArrayList<ExampleItemMaps> list = new ArrayList<>();
