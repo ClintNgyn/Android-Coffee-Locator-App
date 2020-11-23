@@ -88,7 +88,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                              .position(new LatLng(Double.parseDouble(currShop.getLatitude()),
                                                   Double.parseDouble(currShop.getLongitude())))
                              .title(currShop.getType())
-                             .icon(BitmapDescriptorFromVector(getApplicationContext(), vectorSelector(currShop.getType()))));
+                             .icon(getBitmapDescriptorFromVector(getApplicationContext(), getVectorId(currShop.getType()))));
         }
         
         //display shops in rvNearYouListId
@@ -117,7 +117,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
    * @param type type of shop as string.
    * @return a different vector based on what shop it is.
    */
-  private int vectorSelector(String type) {
+  private int getVectorId(String type) {
     return type.toUpperCase().equals("STARBUCKS") ?
            R.drawable.ic_starbucks_marker :
            type.toUpperCase().equals("TIM HORTONS") ? R.drawable.ic_tim_hortons_marker : R.drawable.ic_dunkin_donuts_marker;
@@ -130,7 +130,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
    * @param vectorResId vector resource id
    * @return A bitmapDescriptor of the vector.
    */
-  private BitmapDescriptor BitmapDescriptorFromVector(Context context, int vectorResId) {
+  private BitmapDescriptor getBitmapDescriptorFromVector(Context context, int vectorResId) {
     Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
     vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
     
