@@ -25,5 +25,7 @@
   <color name="menuColorBlack">#1E1E1E</color>
   <color name="menuColorAccent">#ff4081</color>
 
+  <!-- Button theme -->
+  <color name="btnOrange">#FF6247</color>
 
 </resources>

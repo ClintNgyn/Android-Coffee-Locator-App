@@ -36,7 +36,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //set ivFoodImageId
         Picasso.get().load(menuJsonObjsList.get(position).getImageUrl()).into(holder.ivFoodImageId);
-
         //set tvFoodNameId
         holder.tvFoodNameId.setText(menuJsonObjsList.get(position).getName());
     }
