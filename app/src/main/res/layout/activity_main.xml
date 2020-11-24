@@ -7,19 +7,10 @@
   android:background="@color/bg_color"
   tools:context=".MainActivity">
 
-  <LinearLayout
-    android:id="@+id/linearLayout"
+  <View
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#232937">
-
-    <com.jgabrielfreitas.core.BlurImageView
-      android:id="@+id/bivBackgroundId"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:scaleType="centerCrop" />
-
-  </LinearLayout>
+    android:background="#232937"/>
 
   <Button
     android:id="@+id/loginButton"
