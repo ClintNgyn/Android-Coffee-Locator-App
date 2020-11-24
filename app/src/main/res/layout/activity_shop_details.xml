@@ -1,88 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="@color/bg_color"
-  android:orientation="vertical"
-  tools:context=".ShopDetailsActivity">
-
-  <!-- Start ImageView -->
-  <ImageView
-    android:id="@+id/ivShopImageId"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:background="@color/blue5"
-    android:scaleType="centerCrop" />
-  <!-- End ImageView -->
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical"
+    tools:context=".ShopDetailsActivity">
 
-  <!-- Start TextView -->
-  <TextView
-    android:id="@+id/tvTypeId"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight=".2"
-    android:shadowColor="@color/menuColorBlack"
-    android:text="Type"
-    android:textColor="@color/menuColorBlack"
-    android:textSize="22sp"
-    android:textStyle="bold" />
-  <!-- End TextView -->
+    <!-- Start ImageView -->
+    <ImageView
+        android:id="@+id/ivShopImageId"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/blue5"
+        android:scaleType="centerCrop" />
+    <!-- End ImageView -->
 
-  <!-- Start TextView -->
-  <TextView
-    android:id="@+id/tvAddressId"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight=".2"
-    android:shadowColor="@color/menuColorBlack"
-    android:text="Address"
-    android:textColor="@color/menuColorBlack"
-    android:textSize="22sp"
-    android:textStyle="bold" />
-  <!-- End TextView -->
+    <!-- Start TextView -->
+    <TextView
+        android:id="@+id/tvTypeId"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".2"
+        android:shadowColor="@color/menuColorBlack"
+        android:text="Type"
+        android:textColor="@color/menuColorBlack"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+    <!-- End TextView -->
 
-  <!-- Start TextView -->
-  <TextView
-    android:id="@+id/tvPhoneId"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight=".2"
-    android:shadowColor="@color/menuColorBlack"
-    android:text="PhoneNumber"
-    android:textColor="@color/menuColorBlack"
-    android:textSize="22sp"
-    android:textStyle="bold" />
-  <!-- End TextView -->
+    <!-- Start TextView -->
+    <TextView
+        android:id="@+id/tvAddressId"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".2"
+        android:shadowColor="@color/menuColorBlack"
+        android:text="Address"
+        android:textColor="@color/menuColorBlack"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+    <!-- End TextView -->
 
-  <!-- Start TextView -->
-  <TextView
-    android:id="@+id/tvIsHeartCheckedId"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight=".2"
-    android:shadowColor="@color/menuColorBlack"
-    android:text="is Heart Checked"
-    android:textColor="@color/menuColorBlack"
-    android:textSize="22sp"
-    android:textStyle="bold" />
-  <!-- End TextView -->
+    <!-- Start TextView -->
+    <TextView
+        android:id="@+id/tvPhoneId"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".2"
+        android:shadowColor="@color/menuColorBlack"
+        android:text="PhoneNumber"
+        android:textColor="@color/menuColorBlack"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+    <!-- End TextView -->
 
-  <!-- Start Button -->
-  <Button
-    android:id="@+id/btnSeeMenuId"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight=".2"
-    android:shadowColor="@color/menuColorBlack"
-    android:shadowRadius="4"
-    android:shadowDx="2"
-    android:shadowDy="2"
-    android:text="See Menu"
-    android:textColor="#f3f3f3"
-    android:textSize="16sp" />
-  <!-- End Button -->
+    <!-- Start TextView -->
+    <TextView
+        android:id="@+id/tvIsHeartCheckedId"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".2"
+        android:shadowColor="@color/menuColorBlack"
+        android:text="is Heart Checked"
+        android:textColor="@color/menuColorBlack"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+    <!-- End TextView -->
+
+    <!-- Start Button -->
+    <Button
+        android:id="@+id/btnSeeMenuId"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".2"
+        android:shadowColor="@color/menuColorBlack"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4"
+        android:text="See Menu"
+        android:textColor="#f3f3f3"
+        android:textSize="16sp" />
+    <!-- End Button -->
 
 </LinearLayout>

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="@color/bg_color"
-  android:orientation="vertical"
-  android:padding="8dp"
-  tools:context=".MenuActivity">
-
-  <!-- Start RecyclerView -->
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/rvMenuListId"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
-  <!-- End RecyclerView -->
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".MenuActivity">
+
+    <!-- Start RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMenuListId"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <!-- End RecyclerView -->
 
 </LinearLayout>
