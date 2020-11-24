@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="96dp"
-  android:id="@+id/cvCardViewId"
-  android:layout_margin="5dp"
-  android:clickable="true"
-  android:foreground="?android:attr/selectableItemBackground"
-  android:orientation="horizontal"
-  android:padding="2dp"
-  app:cardCornerRadius="4dp"
-  android:focusable="false">
-
-  <LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvCardViewId"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="96dp"
+    android:layout_margin="5dp"
+    android:clickable="true"
+    android:focusable="false"
+    android:foreground="?android:attr/selectableItemBackground"
     android:orientation="horizontal"
-    android:padding="3dp">
-
-    <ImageView
-      android:id="@+id/ivFavsId"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:padding="10dp"
-      android:src="@drawable/ic_heart_uncolored"
-      android:contentDescription="@string/favoriteicon" />
+    android:padding="2dp"
+    app:cardCornerRadius="4dp">
 
     <LinearLayout
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:layout_weight="1"
-      android:orientation="vertical"
-      android:paddingHorizontal="5dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="3dp">
 
-      <TextView
-        android:id="@+id/tvTypeId"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:gravity="center_vertical"
-        android:text="@string/starbucks"
-        android:textSize="19sp"
-        android:textColor="@color/menuColorBlack"
-        android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/ivFavsId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/favoriteicon"
+            android:padding="10dp"
+            android:src="@drawable/ic_heart_uncolored" />
 
-      <TextView
-        android:id="@+id/tvAddressId"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:textSize="14sp"
-        android:gravity="center_vertical"
-        android:textColor="@color/menuColorBlack"
-        android:text="@string/address" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingHorizontal="5dp">
+
+            <TextView
+                android:id="@+id/tvTypeId"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:text="@string/starbucks"
+                android:textColor="@color/menuColorBlack"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvAddressId"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:gravity="center_vertical"
+                android:text="@string/address"
+                android:textColor="@color/menuColorBlack"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivInfoBtnId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/info_icon"
+            android:padding="10dp"
+            android:src="@drawable/ic_baseline_info_24" />
+
     </LinearLayout>
-
-    <ImageView
-      android:id="@+id/ivInfoBtnId"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:padding="10dp"
-      android:src="@drawable/ic_baseline_info_24"
-      android:contentDescription="@string/info_icon" />
-
-  </LinearLayout>
 </androidx.cardview.widget.CardView>
