@@ -28,7 +28,7 @@
   <string name="favoriteicon">favoriteIcon</string>
   <string name="starbucks">Starbucks</string>
   <string name="info_icon">info icon</string>
-    <string name="open">Open Navigation Drawer</string>
+  <string name="open">Open Navigation Drawer</string>
   <string name="close">Close Navigation Drawer</string>
 
 </resources>

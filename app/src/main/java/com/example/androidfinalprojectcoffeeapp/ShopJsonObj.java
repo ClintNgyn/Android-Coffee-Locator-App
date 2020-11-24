@@ -1,6 +1,8 @@
 package com.example.androidfinalprojectcoffeeapp;
 
-public class ShopJsonObj {
+import java.io.Serializable;
+
+public class ShopJsonObj implements Serializable {
   private String img;
   private String address;
   private String phonenumber;

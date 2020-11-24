@@ -1,6 +1,8 @@
 package com.example.androidfinalprojectcoffeeapp;
 
-public class MenuJsonObj {
+import java.io.Serializable;
+
+public class MenuJsonObj implements Serializable {
   private String name;
   private String sizes;
   private String sugar;

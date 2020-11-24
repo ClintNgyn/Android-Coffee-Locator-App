@@ -20,28 +20,31 @@ public class MenuActivity extends AppCompatActivity {
   private RecyclerView rvMenuListId;
   
   private List<MenuJsonObj> menuJsonObjsList;
-  
+  private String mShopType;
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_menu);
     
+    //get intent data from ShopDetails Activity
+    mShopType = getIntent().getStringExtra("mShopType");
+    
     //link rvMenuListId
     rvMenuListId = findViewById(R.id.rvMenuListId);
     
-    //init menuItemClassList
+    //initializations
     menuJsonObjsList = new ArrayList<>();
     
     //add menu items from json file to menuJsonObjsList
-    addItemsToList();
+    addMenuItemsToList();
     
   }
   
   /**
    * Fetch json file with retrofit and add items to menuJsonObjsList.
    */
-  private void addItemsToList() {
+  private void addMenuItemsToList() {
     Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.npoint.io/")
                                               .addConverterFactory(GsonConverterFactory.create())
                                               .build();
