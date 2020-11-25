@@ -87,6 +87,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_profile);
 
         //TODO: add comments here
         profile_pic.setOnClickListener(view -> {
@@ -220,6 +221,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 finish();
                 break;
         }
+    
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 

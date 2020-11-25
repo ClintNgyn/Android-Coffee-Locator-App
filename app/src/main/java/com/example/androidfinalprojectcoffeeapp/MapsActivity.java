@@ -53,7 +53,6 @@ public class MapsActivity extends AppCompatActivity
   private RecyclerView rvShopsListId;
   
   private String currentUser;
-  private String fName, lName;
   
   private DrawerLayout drawerLayout;
   private NavigationView navigationView;
@@ -69,6 +68,7 @@ public class MapsActivity extends AppCompatActivity
     
     //link views
     rvShopsListId = findViewById(R.id.rvShopsListId);
+    
     drawerLayout = findViewById(R.id.maps_drawerlayout);
     navigationView = findViewById(R.id.maps_nav);
     header = navigationView.getHeaderView(0);
@@ -86,6 +86,7 @@ public class MapsActivity extends AppCompatActivity
     drawerLayout.addDrawerListener(toggle);
     toggle.syncState();
     navigationView.setNavigationItemSelectedListener(this);
+    navigationView.setCheckedItem(R.id.nav_map);
     
     
     // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -110,6 +111,8 @@ public class MapsActivity extends AppCompatActivity
         finish();
         break;
     }
+    
+    drawerLayout.closeDrawer(GravityCompat.START);
     return true;
   }
   
@@ -125,8 +128,8 @@ public class MapsActivity extends AppCompatActivity
     mDatabaseRef.child(currentUser).addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot snapshot) {
-        fName = String.valueOf(snapshot.child("fName").getValue());
-        lName = String.valueOf(snapshot.child("lName").getValue());
+        String fName = String.valueOf(snapshot.child("fName").getValue());
+        String lName = String.valueOf(snapshot.child("lName").getValue());
         headerName.setText(fName + " " + lName);
         Picasso.get().load(String.valueOf(snapshot.child("imageUrl").getValue())).into(headerProfilePic);
       }
@@ -157,6 +160,7 @@ public class MapsActivity extends AppCompatActivity
   public void onMapReady(GoogleMap googleMap) {
     mMap = googleMap;
     
+    //TODO: get device's location
     //moving camera to montreal
     LatLng montreal = new LatLng(45.4774675, -73.6080016);
     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(montreal, 13.4f));
@@ -220,13 +224,27 @@ public class MapsActivity extends AppCompatActivity
    * @return a different vector based on what shop it is.
    */
   private int getVectorId(String type) {
-    return type.toUpperCase().equals("STARBUCKS") ?
-           R.drawable.ic_starbucks_marker :
-           type.toUpperCase().equals("TIM HORTONS") ? R.drawable.ic_tim_hortons_marker : R.drawable.ic_dunkin_donuts_marker;
+    int id = 0;
+    
+    switch (type.toUpperCase()) {
+      case "STARBUCKS":
+        id = R.drawable.ic_starbucks_marker;
+        break;
+      case "TIM HORTONS":
+        id = R.drawable.ic_tim_hortons_marker;
+        break;
+      case "DUNKIN DONUTS":
+        id = R.drawable.ic_dunkin_donuts_marker;
+        break;
+      case "SECOND CUP":
+        id = R.drawable.ic_dunkin_donuts_marker;
+        break;
+    }
+    return id;
   }
   
   /**
-   * Convert vector to bitmap.
+   * Converts a vector into a BitmapDescriptor for google maps to use.
    *
    * @param context     application context
    * @param vectorResId vector resource id
