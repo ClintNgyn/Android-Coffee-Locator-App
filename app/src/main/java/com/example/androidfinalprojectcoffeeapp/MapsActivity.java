@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -35,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -44,82 +46,58 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MapsActivity extends AppCompatActivity
-    implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
+public class MapsActivity extends SideNavigationBar
+    implements OnMapReadyCallback {
   
   private GoogleMap mMap;
-  
-  private List<ShopJsonObj> shopJsonObjsList;
-  private RecyclerView rvShopsListId;
-  
   private String currentUser;
   
-  private DrawerLayout drawerLayout;
-  private NavigationView navigationView;
-  private View header;
-  private TextView headerName;
-  private CircleImageView headerProfilePic;
-  private DatabaseReference mDatabaseRef;
+  private List<ShopJsonObj> shopJsonObjsList = new ArrayList<>();
+  private RecyclerView rvShopsListId;
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_maps);
+    // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+    mapFragment.getMapAsync(this);
+    
+    //get intent data from MainActivity
+    currentUser = getIntent().getStringExtra("username");
     
     //link views
     rvShopsListId = findViewById(R.id.rvShopsListId);
     
-    drawerLayout = findViewById(R.id.maps_drawerlayout);
-    navigationView = findViewById(R.id.maps_nav);
-    header = navigationView.getHeaderView(0);
-    headerName = header.findViewById(R.id.nav_header_name);
-    headerProfilePic = header.findViewById(R.id.nav_header_profile_pic);
+    //from SideNavigationBar abstract class
+    drawerLayoutId = findViewById(R.id.maps_drawerlayout);
+    navViewId = findViewById(R.id.maps_nav);
+    navHeader = navViewId.getHeaderView(0);
+    tvNavHeaderName = navHeader.findViewById(R.id.nav_header_name);
+    navHeaderPfp = navHeader.findViewById(R.id.nav_header_profile_pic);
     
-    //get intent data from MainActivity
-    Intent intent = getIntent();
-    currentUser = intent.getStringExtra("username");
-    changeHeaderInfo();
+    //init nav bar
+    initNavBar();
+    fetchNavHeaderInfo();
     
-    //Side bar nav will have the focus when toggled
-    navigationView.bringToFront();
-    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
-    drawerLayout.addDrawerListener(toggle);
+    
+  }
+  
+  @Override
+  public void initNavBar() {
+    navViewId.bringToFront();
+    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayoutId, R.string.open, R.string.close);
+    drawerLayoutId.addDrawerListener(toggle);
     toggle.syncState();
-    navigationView.setNavigationItemSelectedListener(this);
-    navigationView.setCheckedItem(R.id.nav_map);
-    
-    
-    // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-    mapFragment.getMapAsync(this);
+    navViewId.setNavigationItemSelectedListener(this);
+    navViewId.setCheckedItem(R.id.nav_map);
   }
   
   /**
-   * Allows user to switch activities from the side bar nav
+   * Fetches user's data and display in nav's header.
    */
   @Override
-  public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-    //open activities for the rest of nav items
-    switch (item.getItemId()) {
-      case R.id.nav_profile:
-        Intent intent = new Intent(MapsActivity.this, ProfileActivity.class);
-        intent.putExtra("username", currentUser);
-        startActivity(intent);
-        break;
-      case R.id.nav_signOut:
-        startActivity(new Intent(MapsActivity.this, MainActivity.class));
-        finish();
-        break;
-    }
-    
-    drawerLayout.closeDrawer(GravityCompat.START);
-    return true;
-  }
-  
-  /**
-   * Sets profile pic and name in the header of user who logged in.
-   */
-  public void changeHeaderInfo() {
+  public void fetchNavHeaderInfo() {
     if (currentUser == null) {
       return;
     }
@@ -130,8 +108,8 @@ public class MapsActivity extends AppCompatActivity
       public void onDataChange(@NonNull DataSnapshot snapshot) {
         String fName = String.valueOf(snapshot.child("fName").getValue());
         String lName = String.valueOf(snapshot.child("lName").getValue());
-        headerName.setText(fName + " " + lName);
-        Picasso.get().load(String.valueOf(snapshot.child("imageUrl").getValue())).into(headerProfilePic);
+        tvNavHeaderName.setText(fName + " " + lName);
+        Picasso.get().load(String.valueOf(snapshot.child("imageUrl").getValue())).into(navHeaderPfp);
       }
       
       @Override
@@ -142,12 +120,37 @@ public class MapsActivity extends AppCompatActivity
   }
   
   /**
-   * Side bar nav will close if swiped
+   * Navigation bar switch activity.
+   *
+   * @param item menu item being selected.
+   * @return true when navigation bar is in focus.
+   */
+  @Override
+  public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    //open activities for the rest of nav items
+    switch (item.getItemId()) {
+      case R.id.nav_profile:
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("username", currentUser);
+        startActivity(intent);
+        break;
+      case R.id.nav_signOut:
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+        break;
+    }
+    drawerLayoutId.closeDrawer(GravityCompat.START);
+    return true;
+  }
+  
+  
+  /**
+   * App will not close when back button is press when nav is in focus.
    */
   @Override
   public void onBackPressed() {
-    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-      drawerLayout.closeDrawer(GravityCompat.START);
+    if (drawerLayoutId.isDrawerOpen(GravityCompat.START)) {
+      drawerLayoutId.closeDrawer(GravityCompat.START);
     } else {
       super.onBackPressed();
     }
@@ -237,6 +240,7 @@ public class MapsActivity extends AppCompatActivity
         id = R.drawable.ic_dunkin_donuts_marker;
         break;
       case "SECOND CUP":
+        // TODO: find second cup svg marker
         id = R.drawable.ic_dunkin_donuts_marker;
         break;
     }

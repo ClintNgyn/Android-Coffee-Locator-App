@@ -24,29 +24,23 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ShopDetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ShopDetailsActivity extends SideNavigationBar {
   
-  private DatabaseReference mDatabaseRef;
   private String currUser;
   private ShopJsonObj mShop;
   
   private ImageView ivShopImageId;
-  private TextView tvTypeId, tvAddressId, tvPhoneId, tvIsHeartCheckedId, tvNavHeaderName;
+  private TextView tvTypeId, tvAddressId, tvPhoneId, tvIsHeartCheckedId;
   Button btnSeeMenuId;
   
-  private DrawerLayout drawerLayoutId;
-  private NavigationView navViewId;
-  private View navHeader;
-  private CircleImageView navHeaderPfp;
-  
-  
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_shop_details);
     
     //get intent data from ShopAdapter Activity
     mShop = (ShopJsonObj) getIntent().getSerializableExtra("currShop");
+    currUser = getIntent().getStringExtra("username");
     
     //link views
     ivShopImageId = findViewById(R.id.ivShopImageId);
@@ -57,29 +51,38 @@ public class ShopDetailsActivity extends AppCompatActivity implements Navigation
     tvIsHeartCheckedId = findViewById(R.id.tvIsHeartCheckedId);
     btnSeeMenuId = findViewById(R.id.btnSeeMenuId);
     
+    //from SideNavigationBar abstract class
     drawerLayoutId = findViewById(R.id.drawLayoutId);
     navViewId = findViewById(R.id.navViewId);
     navHeader = navViewId.getHeaderView(0);
     tvNavHeaderName = navHeader.findViewById(R.id.nav_header_name);
     navHeaderPfp = navHeader.findViewById(R.id.nav_header_profile_pic);
     
-    // get intent data from ShopAdapter Activity
-    currUser = getIntent().getStringExtra("username");
+    //init nav bar
+    initNavBar();
+    fetchNavHeaderInfo();
     
-    //TODO: make an async task
-    //fetch header info
-    fetchHeaderInfo();
-    
-    // set up side navigation bar
-    setUpNavBar();
-    
-    
-    //TODO: make an async task
     //display shop's detail
     displayShopsData();
   }
   
-  private void fetchHeaderInfo() {
+  /**
+   * Setting up navigation bar so that it can be interacted with.
+   */
+  @Override
+  public void initNavBar() {
+    navViewId.bringToFront();
+    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayoutId, R.string.open, R.string.close);
+    drawerLayoutId.addDrawerListener(toggle);
+    toggle.syncState();
+    navViewId.setNavigationItemSelectedListener(this);
+  }
+  
+  /**
+   * Fetches user's data and display in nav's header.
+   */
+  @Override
+  public void fetchNavHeaderInfo() {
     if (currUser == null) {
       return;
     }
@@ -102,17 +105,6 @@ public class ShopDetailsActivity extends AppCompatActivity implements Navigation
   }
   
   /**
-   * Setting up navigation bar so that it can be interacted with.
-   */
-  private void setUpNavBar() {
-    navViewId.bringToFront();
-    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayoutId, R.string.open, R.string.close);
-    drawerLayoutId.addDrawerListener(toggle);
-    toggle.syncState();
-    navViewId.setNavigationItemSelectedListener(this);
-  }
-  
-  /**
    * Navigation bar switch activity.
    *
    * @param item menu item being selected.
@@ -122,11 +114,29 @@ public class ShopDetailsActivity extends AppCompatActivity implements Navigation
   public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     //open activities for the rest of nav items
     switch (item.getItemId()) {
-      case R.id.nav_map:
+      case R.id.nav_map: {
         Intent intent = new Intent(this, MapsActivity.class);
         intent.putExtra("username", currUser);
         startActivity(intent);
         break;
+      }
+      
+      case R.id.nav_profile: {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("username", currUser);
+        startActivity(intent);
+        break;
+      }
+      
+      // TODO: implement favs activity
+      
+      //      case R.id.nav_favs: {
+      //        Intent intent = new Intent(this, Favorites.class);
+      //        intent.putExtra("username", currUser);
+      //        startActivity(intent);
+      //        break;
+      //      }
+      
       case R.id.nav_signOut:
         startActivity(new Intent(this, MainActivity.class));
         finish();
@@ -134,6 +144,18 @@ public class ShopDetailsActivity extends AppCompatActivity implements Navigation
     }
     drawerLayoutId.closeDrawer(GravityCompat.START);
     return true;
+  }
+  
+  /**
+   * App will not close when back button is press when nav is in focus.
+   */
+  @Override
+  public void onBackPressed() {
+    if (drawerLayoutId.isDrawerOpen(GravityCompat.START)) {
+      drawerLayoutId.closeDrawer(GravityCompat.START);
+    } else {
+      super.onBackPressed();
+    }
   }
   
   /**
@@ -168,5 +190,6 @@ public class ShopDetailsActivity extends AppCompatActivity implements Navigation
       }
     });
   }
+  
   
 }
