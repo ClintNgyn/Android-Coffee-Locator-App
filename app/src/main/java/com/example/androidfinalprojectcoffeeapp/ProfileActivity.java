@@ -4,17 +4,23 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private CircleImageView profile_pic;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri mImageUri;
@@ -37,6 +43,12 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private String fName, lName, Email, user, password, URL;
     private ImageView edit;
+
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private View header;
+    private TextView headerName;
+    private CircleImageView headerProfilePic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +64,29 @@ public class ProfileActivity extends AppCompatActivity {
         edit = findViewById(R.id.profile_editnames);
         saveNames = findViewById(R.id.profile_saveNames);
         saveImage = findViewById(R.id.profile_saveImage);
+        drawerLayout = findViewById(R.id.profile_drawerlayout);
+        navigationView = findViewById(R.id.profile_nav);
+        header = navigationView.getHeaderView(0);
+        headerName = header.findViewById(R.id.nav_header_name);
+        headerProfilePic = header.findViewById(R.id.nav_header_profile_pic);
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
 
         //get current user
         Intent intent = getIntent();
         currentUser = intent.getStringExtra("username");
+        changeHeaderInfo();
 
         // display current user info
         if (currentUser != null) {
             displayUserInfo();
         }
+
+        //Side bar nav will have the focus when toggled
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
 
         //TODO: add comments here
         profile_pic.setOnClickListener(view -> {
@@ -179,5 +204,60 @@ public class ProfileActivity extends AppCompatActivity {
         ContentResolver cr = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(uri));
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        //open activities for the rest of nav items
+        switch (item.getItemId()) {
+            case R.id.nav_map:
+                Intent intent = new Intent(ProfileActivity.this, MapsActivity.class);
+                intent.putExtra("username", currentUser);
+                startActivity(intent);
+                break;
+            case R.id.nav_signOut:
+                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+                finish();
+                break;
+        }
+        return true;
+    }
+
+    /**
+     * Sets profile pic and name in the header of user who logged in.
+     */
+    public void changeHeaderInfo() {
+        if (currentUser == null) {
+            return;
+        }
+
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("users");
+        mDatabaseRef.child(currentUser).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                fName = String.valueOf(snapshot.child("fName").getValue());
+                lName = String.valueOf(snapshot.child("lName").getValue());
+                headerName.setText(fName + " " + lName);
+                Picasso.get().load(String.valueOf(snapshot.child("imageUrl").getValue())).into(headerProfilePic);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+    /**
+     * Side bar nav will close if swiped
+     */
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

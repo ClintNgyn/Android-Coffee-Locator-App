@@ -105,6 +105,10 @@ public class MapsActivity extends AppCompatActivity
         intent.putExtra("username", currentUser);
         startActivity(intent);
         break;
+      case R.id.nav_signOut:
+        startActivity(new Intent(MapsActivity.this, MainActivity.class));
+        finish();
+        break;
     }
     return true;
   }
