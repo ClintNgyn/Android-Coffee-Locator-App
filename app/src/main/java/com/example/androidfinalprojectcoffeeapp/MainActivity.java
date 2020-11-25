@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
   private EditText usernameInput, passwordInput;
   private TextView forgetPasswordTextView;
   private ImageView googleLogo, facebookLogo, twitterLogo, githubLogo, showPasswordImage;
-  private BlurImageView bivBackgroundId;
   
   private boolean toggleEyeVisibility = false;
   
@@ -49,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     
     showPasswordImage = findViewById(R.id.showPasswordImage);
     
-    bivBackgroundId = findViewById(R.id.bivBackgroundId);
     
     
     // signUpButton onclick handler
@@ -161,8 +159,6 @@ public class MainActivity extends AppCompatActivity {
     Picasso.get().load("https://coffee.alexflipnote.dev/27OJ6laasxs_coffee.jpg").into(new Target() {
       @Override
       public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-        bivBackgroundId.setImageBitmap(bitmap);
-        bivBackgroundId.setBlur(2);
       }
 
       @Override
