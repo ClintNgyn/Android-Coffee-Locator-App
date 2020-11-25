@@ -38,8 +38,6 @@
       android:name=".MapsActivity"
       android:label="@string/title_activity_new_maps" />
     <activity android:name=".MenuActivity" />
-    <activity android:name=".HomeScreenActivity" />
-    <activity android:name=".AboutAppActivity" />
     <activity android:name=".ProfileActivity" />
     <activity android:name=".SignUpActivity" />
 
