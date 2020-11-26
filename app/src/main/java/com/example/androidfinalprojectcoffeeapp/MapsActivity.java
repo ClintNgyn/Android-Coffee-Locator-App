@@ -33,6 +33,8 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -72,7 +74,7 @@ public class MapsActivity extends SideNavigationBar
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -111,6 +113,10 @@ public class MapsActivity extends SideNavigationBar
             tvNavHeaderName.setText(personGivenName + " " + personFamilyName);
             Picasso.get().load(String.valueOf(personPhoto)).into(navHeaderPfp);
         }
+    }
+
+    private void signOut() {
+        mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> Toast.makeText(MapsActivity.this, "Sign Out Successful", Toast.LENGTH_SHORT));
     }
 
     @Override
@@ -166,6 +172,7 @@ public class MapsActivity extends SideNavigationBar
                 break;
             case R.id.nav_signOut:
                 startActivity(new Intent(this, MainActivity.class));
+                signOut();
                 finish();
                 break;
         }
