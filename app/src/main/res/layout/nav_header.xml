@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/nav_header"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:orientation="vertical">
-
-  <com.jgabrielfreitas.core.BlurImageView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_header"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:scaleType="centerCrop"
-    android:src="@drawable/nav_header_image"
-    app:radius="2" />
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
- <LinearLayout
-   android:layout_centerInParent="true"
-   android:gravity="center"
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:orientation="vertical">
+    <com.jgabrielfreitas.core.BlurImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/nav_header_image"
+        app:radius="2" />
 
-   <de.hdodenhof.circleimageview.CircleImageView
-     android:id="@+id/nav_header_profile_pic"
-     android:layout_width="110dp"
-     android:layout_height="110dp"
-     android:background="#36A17E"
-     android:scaleType="centerCrop" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
 
-   <TextView
-     android:id="@+id/nav_header_name"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:shadowColor="#2d2d2d"
-     android:shadowDx="3"
-     android:shadowDy="3"
-     android:shadowRadius="3"
-     android:layout_marginTop="15dp"
-     android:text="First Name Last Name"
-     android:textColor="#f3f3f3"
-     android:textSize="20sp"
-     android:textStyle="bold" />
- </LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/nav_header_profile_pic"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/nav_header_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:shadowColor="#2d2d2d"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="3"
+            android:text="First Name Last Name"
+            android:textColor="#f3f3f3"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 </RelativeLayout>
