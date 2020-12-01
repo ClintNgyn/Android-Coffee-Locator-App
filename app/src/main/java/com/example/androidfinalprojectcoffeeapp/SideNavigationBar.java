@@ -20,16 +20,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public abstract class SideNavigationBar extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
   
-  protected DatabaseReference mDatabaseRef;
-  protected DrawerLayout drawerLayoutId;
-  protected NavigationView navViewId;
-  protected View navHeader;
-  protected TextView tvNavHeaderName;
-  protected CircleImageView navHeaderPfp;
+  public DatabaseReference mDatabaseRef;
+  public DrawerLayout drawerLayoutId;
+  public NavigationView navViewId;
+  public View navHeader;
+  public TextView tvNavHeaderName;
+  public CircleImageView navHeaderPfp;
   
-  protected abstract void initNavBar();
+  public abstract void initNavBar();
   
-  protected abstract void fetchNavHeaderInfo();
+  public abstract void fetchNavHeaderInfo();
   
   @Override
   public abstract boolean onNavigationItemSelected(@NonNull MenuItem item);
