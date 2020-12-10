@@ -98,7 +98,7 @@ public class MenuActivity extends SideNavigationBar {
   }
   
   @Override
-  protected void initNavBar() {
+  public void initNavBar() {
     navViewId.bringToFront();
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayoutId, R.string.open, R.string.close);
     drawerLayoutId.addDrawerListener(toggle);
@@ -107,7 +107,7 @@ public class MenuActivity extends SideNavigationBar {
   }
   
   @Override
-  protected void fetchNavHeaderInfo() {
+  public void fetchNavHeaderInfo() {
     if (currUser == null) {
       return;
     }
@@ -138,6 +138,10 @@ public class MenuActivity extends SideNavigationBar {
         startActivity(intent);
         break;
       }
+
+      case R.id.nav_favorites:
+        startActivity(new Intent(this, FavoriteListActivity.class));
+        break;
       
       case R.id.nav_profile: {
         Intent intent = new Intent(this, ProfileActivity.class);
@@ -145,15 +149,6 @@ public class MenuActivity extends SideNavigationBar {
         startActivity(intent);
         break;
       }
-      
-      // TODO: implement favs activity
-      
-      //      case R.id.nav_favs: {
-      //        Intent intent = new Intent(this, Favorites.class);
-      //        intent.putExtra("username", currUser);
-      //        startActivity(intent);
-      //        break;
-      //      }
       
       case R.id.nav_signOut:
         startActivity(new Intent(this, MainActivity.class));

@@ -216,6 +216,11 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 intent.putExtra("username", currentUser);
                 startActivity(intent);
                 break;
+
+            case R.id.nav_favorites:
+                startActivity(new Intent(this, FavoriteListActivity.class));
+                break;
+
             case R.id.nav_signOut:
                 startActivity(new Intent(ProfileActivity.this, MainActivity.class));
                 finish();
