@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +23,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -132,28 +137,28 @@ public class MainActivity extends AppCompatActivity {
      * Validate that the user exists in the database.
      */
     public void validateLoginInfo() {
-        openMapsActivity(null);
+        //openMapsActivity(null);
         //    TODO: uncomment after - for now just login (very annoying to have to sign in every time)
-        //    String username = usernameInput.getText().toString();
-        //    String password = passwordInput.getText().toString();
-        //    //check if username and password combination in the database
-        //    FirebaseDatabase.getInstance().getReference("users").child(username).addValueEventListener(new ValueEventListener() {
-        //      @Override
-        //      public void onDataChange(@NonNull DataSnapshot snapshot) {
-        //        if (String.valueOf(snapshot.child("password").getValue()).equals(SignUpActivity.SHA1(password))) {
-        //          openMapsActivity(username);
-        //        } else {
-        //          usernameInput.requestFocus();
-        //          usernameInput.setError("Invalid Username or Password");
-        //          passwordInput.setError("Invalid Username or Password");
-        //        }
-        //      }
-        //
-        //      @Override
-        //      public void onCancelled(@NonNull DatabaseError error) {
-        //        return;
-        //      }
-        //    });
+            String username = usernameInput.getText().toString();
+            String password = passwordInput.getText().toString();
+            //check if username and password combination in the database
+            FirebaseDatabase.getInstance().getReference("users").child(username).addValueEventListener(new ValueEventListener() {
+              @Override
+              public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (String.valueOf(snapshot.child("password").getValue()).equals(SignUpActivity.SHA1(password))) {
+                  openMapsActivity(username);
+                } else {
+                  usernameInput.requestFocus();
+                  usernameInput.setError("Invalid Username or Password");
+                  passwordInput.setError("Invalid Username or Password");
+                }
+              }
+
+              @Override
+              public void onCancelled(@NonNull DatabaseError error) {
+                return;
+              }
+            });
     }
 
     /**

@@ -13,16 +13,24 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMapsRecyclerView> {
   private Context context;
   private List<ShopJsonObj> shopsList;
+  private String currentUser;
   
-  public ShopAdapter(Context context, List<ShopJsonObj> shopsList) {
+  public ShopAdapter(Context context, List<ShopJsonObj> shopsList, String currentUser) {
     this.context = context;
     this.shopsList = shopsList;
+    this.currentUser = currentUser;
   }
   
   @NonNull
@@ -44,19 +52,47 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
     holder.tvAddressId.setText(currShop.getAddress());
     
     //set init heart image
-    holder.ivFavsId.setImageResource(currShop.isHeartChecked() ? R.drawable.ic_heart_colored : R.drawable.ic_heart_uncolored);
-    
+    //holder.ivFavsId.setImageResource(currShop.isHeartChecked() ? R.drawable.ic_heart_colored : R.drawable.ic_heart_uncolored);
+
+    //setImagesProperly.
+    holder.ivFavsId.setImageResource(R.drawable.ic_heart_uncolored);
+    currShop.setHeartChecked(false);
+    FirebaseDatabase.getInstance().getReference("favorites").child(currentUser).addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot snapshot) {
+        for (DataSnapshot d : snapshot.getChildren()) {
+          if (currShop.getAddress().equals(d.getKey())){
+            holder.ivFavsId.setImageResource(R.drawable.ic_heart_colored);
+            currShop.setHeartChecked(true);
+          }
+        }
+      }
+
+      @Override
+      public void onCancelled(@NonNull DatabaseError error) {
+
+      }
+    });
+
     // set ivFavsId onclick handler
     holder.ivFavsId.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         boolean isHeartChecked = currShop.isHeartChecked();
-        
-        // toggle heart
-        holder.ivFavsId.setImageResource(isHeartChecked ? R.drawable.ic_heart_uncolored : R.drawable.ic_heart_colored);
-        
+        DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("favorites");
+        // toggle heartp
+        //holder.ivFavsId.setImageResource(isHeartChecked ? R.drawable.ic_heart_uncolored : R.drawable.ic_heart_colored);
+        if (!isHeartChecked){
+          holder.ivFavsId.setImageResource(R.drawable.ic_heart_colored);
+          mDatabaseRef.push().getKey();
+          mDatabaseRef.child(currentUser).child(currShop.getAddress()).setValue(currShop);
+        }
+        else{
+          holder.ivFavsId.setImageResource(R.drawable.ic_heart_uncolored);
+          mDatabaseRef.child(currentUser).child(currShop.getAddress()).removeValue();
+        }
         // TODO: add or remove from favorite places
-        
+
         //set isHeartChecked to !isHeartChecked
         currShop.setHeartChecked(!isHeartChecked);
       }
