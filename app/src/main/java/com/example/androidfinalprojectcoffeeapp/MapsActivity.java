@@ -248,7 +248,7 @@ public class MapsActivity extends SideNavigationBar
      * Display shops in recycler view
      */
     private void displayShops() {
-        ShopAdapter shopAdapter = new ShopAdapter(this, shopJsonObjsList);
+        ShopAdapter shopAdapter = new ShopAdapter(this, shopJsonObjsList, currentUser);
         rvShopsListId.setLayoutManager(new LinearLayoutManager(this));
         rvShopsListId.setAdapter(shopAdapter);
     }
