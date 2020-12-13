@@ -11,6 +11,19 @@ public class ShopJsonObj implements Serializable {
     private String longitude;
     private boolean isHeartChecked = false;
 
+    public ShopJsonObj() {
+    }
+
+    public ShopJsonObj(String img, String address, String phonenumber, String type, String lat, String longitude, boolean isHeartChecked) {
+        this.img = img;
+        this.address = address;
+        this.phonenumber = phonenumber;
+        Type = type;
+        this.lat = lat;
+        this.longitude = longitude;
+        this.isHeartChecked = isHeartChecked;
+    }
+
     public String getImg() {
         return img;
     }

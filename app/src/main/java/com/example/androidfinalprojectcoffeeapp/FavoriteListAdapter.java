@@ -1,6 +1,7 @@
 package com.example.androidfinalprojectcoffeeapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapter.ViewHolder> {
     private Context context;
-    private List<FavoriteListObj> favoriteList;
+    private List<ShopJsonObj> favoriteList;
     private String currentUser;
 
-    public FavoriteListAdapter(Context context, List<FavoriteListObj> favoriteList, String currentUser) {
+    public FavoriteListAdapter(Context context, List<ShopJsonObj> favoriteList, String currentUser) {
         this.context = context;
         this.favoriteList = favoriteList;
         this.currentUser = currentUser;
@@ -33,7 +35,20 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull FavoriteListAdapter.ViewHolder holder, int position) {
-
+        ShopJsonObj currShop = favoriteList.get(position);
+        holder.favoriteType.setText(currShop.getType());
+        holder.favoriteAddressId.setText(currShop.getAddress());
+        holder.favoriteListInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openShopDetailsActivity(currShop);
+            }
+        });
+    }
+    private void openShopDetailsActivity(ShopJsonObj currShop) {
+        Intent i = new Intent(context, ShopDetailsActivity.class);
+        i.putExtra("currShop", (Serializable) currShop);
+        context.startActivity(i);
     }
 
     @Override
@@ -42,13 +57,13 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView favoriteTypeId;
+        TextView favoriteType;
         TextView favoriteAddressId;
         ImageView favoriteListInfoButton;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            favoriteTypeId = itemView.findViewById(R.id.favoriteTypeId);
+            favoriteType = itemView.findViewById(R.id.favoriteTypeId);
             favoriteAddressId = itemView.findViewById(R.id.favoriteAddressId);
             favoriteListInfoButton = itemView.findViewById(R.id.favoriteListInfoButton);
         }
