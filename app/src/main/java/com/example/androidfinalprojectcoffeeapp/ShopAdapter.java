@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -53,7 +54,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
     
     //set init heart image
     //holder.ivFavsId.setImageResource(currShop.isHeartChecked() ? R.drawable.ic_heart_colored : R.drawable.ic_heart_uncolored);
-
+    //Toast.makeText(context, "" + currShop.isHeartChecked(), Toast.LENGTH_SHORT).show();
     //setImagesProperly.
     holder.ivFavsId.setImageResource(R.drawable.ic_heart_uncolored);
     currShop.setHeartChecked(false);
@@ -61,7 +62,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
       @Override
       public void onDataChange(@NonNull DataSnapshot snapshot) {
         for (DataSnapshot d : snapshot.getChildren()) {
-          if (currShop.getAddress().equals(d.getKey())){
+          if (currShop.getPhoneNumber().equals(d.getKey())){
             holder.ivFavsId.setImageResource(R.drawable.ic_heart_colored);
             currShop.setHeartChecked(true);
           }
@@ -84,17 +85,18 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
         //holder.ivFavsId.setImageResource(isHeartChecked ? R.drawable.ic_heart_uncolored : R.drawable.ic_heart_colored);
         if (!isHeartChecked){
           holder.ivFavsId.setImageResource(R.drawable.ic_heart_colored);
+          currShop.setHeartChecked(true);
           mDatabaseRef.push().getKey();
-          mDatabaseRef.child(currentUser).child(currShop.getAddress()).setValue(currShop);
+          mDatabaseRef.child(currentUser).child(currShop.getPhoneNumber()).setValue(currShop);
         }
         else{
           holder.ivFavsId.setImageResource(R.drawable.ic_heart_uncolored);
-          mDatabaseRef.child(currentUser).child(currShop.getAddress()).removeValue();
+          mDatabaseRef.child(currentUser).child(currShop.getPhoneNumber()).removeValue();
+          currShop.setHeartChecked(false);
         }
         // TODO: add or remove from favorite places
 
         //set isHeartChecked to !isHeartChecked
-        currShop.setHeartChecked(!isHeartChecked);
       }
     });
     
