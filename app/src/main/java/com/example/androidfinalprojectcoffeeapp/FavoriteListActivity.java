@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -21,6 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FavoriteListActivity extends SideNavigationBar {
@@ -28,13 +33,16 @@ public class FavoriteListActivity extends SideNavigationBar {
     private GoogleSignInClient mGoogleSignInClient;
     private String currentUser;
     private String fName, lName;
-
+    private List<ShopJsonObj> list;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_list);
 
+        //connect recycler view
+        recyclerView = findViewById(R.id.favoriteRecyclerView);
         //get current user
         Intent intent = getIntent();
         currentUser = intent.getStringExtra("username");
@@ -60,6 +68,36 @@ public class FavoriteListActivity extends SideNavigationBar {
 
         //Get Google Account Information
         getGoogleAccountInfo();
+
+        //init list
+        list = new ArrayList<>();
+        //fill up the list
+        FirebaseDatabase.getInstance().getReference("favorites").child(currentUser).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String temp = "";
+                for (DataSnapshot d : snapshot.getChildren()){
+                    //temp += d.child("type").getValue() +  ":";
+                    list.add(new ShopJsonObj(
+                            d.child("img").getValue().toString(),
+                            d.child("address").getValue().toString(),
+                            d.child("phoneNumber").getValue().toString(),
+                            d.child("type").getValue().toString(),
+                            d.child("latitude").getValue().toString(),
+                            d.child("longitude").getValue().toString(),
+                            true
+                    ));
+                }
+                //set RecyclerView
+                recyclerView.setLayoutManager(new LinearLayoutManager(FavoriteListActivity.this));
+                recyclerView.setAdapter(new FavoriteListAdapter(FavoriteListActivity.this, list, currentUser));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     /**
