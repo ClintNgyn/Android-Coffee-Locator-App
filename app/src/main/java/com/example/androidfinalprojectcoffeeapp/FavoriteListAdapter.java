@@ -14,10 +14,10 @@ import java.util.List;
 
 public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapter.ViewHolder> {
     private Context context;
-    private List<ShopJsonObj> favoriteList;
+    private List<FavoriteListObj> favoriteList;
     private String currentUser;
 
-    public FavoriteListAdapter(Context context, List<ShopJsonObj> favoriteList, String currentUser) {
+    public FavoriteListAdapter(Context context, List<FavoriteListObj> favoriteList, String currentUser) {
         this.context = context;
         this.favoriteList = favoriteList;
         this.currentUser = currentUser;
