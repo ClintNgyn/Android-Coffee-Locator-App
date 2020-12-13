@@ -21,15 +21,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FavoriteListActivity extends SideNavigationBar {
 
     private GoogleSignInClient mGoogleSignInClient;
     private String currentUser;
+    private String fName, lName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_list);
+
+        //get current user
+        Intent intent = getIntent();
+        currentUser = intent.getStringExtra("username");
+        changeHeaderInfo();
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -51,6 +60,31 @@ public class FavoriteListActivity extends SideNavigationBar {
 
         //Get Google Account Information
         getGoogleAccountInfo();
+    }
+
+    /**
+     * Sets profile pic and name in the header of user who logged in.
+     */
+    public void changeHeaderInfo() {
+        if (currentUser == null) {
+            return;
+        }
+
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("users");
+        mDatabaseRef.child(currentUser).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                fName = String.valueOf(snapshot.child("fName").getValue());
+                lName = String.valueOf(snapshot.child("lName").getValue());
+                tvNavHeaderName.setText(fName + " " + lName);
+                Picasso.get().load(String.valueOf(snapshot.child("imageUrl").getValue())).into(navHeaderPfp);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void getGoogleAccountInfo() {
@@ -119,13 +153,17 @@ public class FavoriteListActivity extends SideNavigationBar {
         //open activities for the rest of nav items
         switch (item.getItemId()) {
             case R.id.nav_profile:
-                Intent intent = new Intent(this, ProfileActivity.class);
-                intent.putExtra("username", currentUser);
-                startActivity(intent);
+                Intent profileIntent = new Intent(this, ProfileActivity.class);
+                profileIntent.putExtra("username", currentUser);
+                startActivity(profileIntent);
+                finish();
                 break;
 
-            case R.id.nav_favorites:
-                startActivity(new Intent(this, FavoriteListActivity.class));
+            case R.id.nav_map:
+                Intent mapIntent = new Intent(this, MapsActivity.class);
+                mapIntent.putExtra("username", currentUser);
+                startActivity(mapIntent);
+                finish();
                 break;
 
             case R.id.nav_signOut:

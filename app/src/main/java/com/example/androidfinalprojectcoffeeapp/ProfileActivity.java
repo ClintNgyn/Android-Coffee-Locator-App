@@ -89,7 +89,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_profile);
 
-        //TODO: add comments here
+        //Select photo from phone gallery
         profile_pic.setOnClickListener(view -> {
             openFileChooser();
             // startActivity(new Intent(ProfileActivity.this, temporary.class));
@@ -212,21 +212,23 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         //open activities for the rest of nav items
         switch (item.getItemId()) {
             case R.id.nav_map:
-                Intent intent = new Intent(ProfileActivity.this, MapsActivity.class);
-                intent.putExtra("username", currentUser);
-                startActivity(intent);
+                Intent mapIntent = new Intent(this, MapsActivity.class);
+                mapIntent.putExtra("username", currentUser);
+                startActivity(mapIntent);
                 break;
 
             case R.id.nav_favorites:
-                startActivity(new Intent(this, FavoriteListActivity.class));
+                Intent favoritesIntent = new Intent(this, FavoriteListActivity.class);
+                favoritesIntent.putExtra("username", currentUser);
+                startActivity(favoritesIntent);
                 break;
 
             case R.id.nav_signOut:
-                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
                 finish();
                 break;
         }
-    
+
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
