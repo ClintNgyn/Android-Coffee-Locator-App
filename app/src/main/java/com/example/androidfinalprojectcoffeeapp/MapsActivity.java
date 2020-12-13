@@ -157,13 +157,15 @@ public class MapsActivity extends SideNavigationBar
         //open activities for the rest of nav items
         switch (item.getItemId()) {
             case R.id.nav_profile:
-                Intent intent = new Intent(this, ProfileActivity.class);
-                intent.putExtra("username", currentUser);
-                startActivity(intent);
+                Intent profileIntent = new Intent(this, ProfileActivity.class);
+                profileIntent.putExtra("username", currentUser);
+                startActivity(profileIntent);
                 break;
 
             case R.id.nav_favorites:
-                startActivity(new Intent(this, FavoriteListActivity.class));
+                Intent favoriteIntent = new Intent(this, FavoriteListActivity.class);
+                favoriteIntent.putExtra("username", currentUser);
+                startActivity(favoriteIntent);
                 break;
 
             case R.id.nav_signOut:
