@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favoriteListCardView"
+    android:layout_width="match_parent"
+    android:layout_height="96dp"
+    android:layout_margin="5dp"
+    android:clickable="true"
+    android:focusable="false"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="horizontal"
+    android:padding="2dp"
+    app:cardCornerRadius="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/favoriteTypeId"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:text="@string/starbucks"
+            android:textColor="@color/menuColorBlack"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/favoriteAddressId"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/address"
+            android:textColor="@color/menuColorBlack"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/favoriteTypeId"
+            app:layout_constraintTop_toBottomOf="@+id/favoriteTypeId" />
+
+        <ImageView
+            android:id="@+id/favoriteListInfoButton"
+            android:layout_width="55dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/info_icon"
+            android:padding="10dp"
+            android:src="@drawable/ic_baseline_info_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/favoriteTypeId"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.166" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
