@@ -47,7 +47,7 @@
         android:layout_marginBottom="5dp"
         android:layout_weight=".14"
         android:gravity="bottom"
-        android:text="Coffee Shops Nearby"
+        android:text="@string/nearBy"
         android:textColor="@color/menuColorBlack"
         android:textSize="19.5sp"
         android:textStyle="bold" />

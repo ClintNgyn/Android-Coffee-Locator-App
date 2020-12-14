@@ -27,7 +27,7 @@
     android:layout_marginTop="5dp"
     android:shadowDy="1"
     android:shadowRadius="2"
-    android:text="Food Name"
+    android:text="@string/foodName"
     android:textAlignment="center"
     android:textColor="#191919"
     android:textSize="16sp"
@@ -54,7 +54,7 @@
       android:shadowDx="2"
       android:shadowDy="2"
       android:shadowRadius="3"
-      android:text="  Small"
+      android:text="@string/small"
       android:textAllCaps="false"
       android:textColor="#fff"
       app:backgroundTint="@color/btnOrange"
@@ -71,7 +71,7 @@
       android:shadowDx="2"
       android:shadowDy="2"
       android:shadowRadius="3"
-      android:text="  Medium"
+      android:text="@string/medium"
       android:textAllCaps="false"
       android:textColor="#fff"
       app:backgroundTint="@color/menuColorPrimaryDark"/>
@@ -88,7 +88,7 @@
       android:shadowDx="2"
       android:shadowDy="2"
       android:shadowRadius="3"
-      android:text="  Large"
+      android:text="@string/large"
       android:textAllCaps="false"
       android:textColor="#fff"
       app:backgroundTint="@color/menuColorPrimaryDark"/>
@@ -104,7 +104,7 @@
     <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="Nutrition Information"
+      android:text="@string/nutInfo"
       android:textColor="@color/menuColorBlack"
       android:textSize="20sp"
       android:textStyle="bold" />
@@ -113,7 +113,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="5dp"
-      android:text="Nutrition information is calculated based on our standard recipes. Only changing drink size will update this information."
+      android:text="@string/nutCalInfo"
       android:textSize="14sp"
       android:textStyle="italic" />
 
@@ -126,7 +126,7 @@
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Serving Size:  "
+          android:text="@string/survingSize"
         android:textColor="@color/menuColorBlack"
         android:textSize="15sp" />
 
@@ -155,7 +155,7 @@
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calories  "
+        android:text="@string/cals"
         android:textColor="@color/menuColorBlack"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -184,7 +184,7 @@
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Fats  "
+        android:text="@string/totalFat"
         android:textColor="@color/menuColorBlack"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -269,7 +269,7 @@
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cholesterol  "
+        android:text="@string/cholesterol"
         android:textColor="@color/menuColorBlack"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -298,7 +298,7 @@
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sodium  "
+        android:text="@string/sodium"
         android:textColor="@color/menuColorBlack"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -327,7 +327,7 @@
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Carbohydrates  "
+        android:text="@string/totalCarb"
         android:textColor="@color/menuColorBlack"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -412,7 +412,7 @@
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Protein  "
+        android:text="@string/protein"
         android:textColor="@color/menuColorBlack"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -441,7 +441,7 @@
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Caffeine  "
+        android:text="@string/caff"
         android:textColor="@color/menuColorBlack"
         android:textSize="15sp"
         android:textStyle="bold" />
