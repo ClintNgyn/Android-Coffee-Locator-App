@@ -82,7 +82,7 @@ public class FavoriteListActivity extends SideNavigationBar {
               d.child("latitude").getValue().toString(),
               d.child("longitude").getValue().toString(),
               true,
-              (Double) d.child("distance").getValue()
+              Double.parseDouble(d.child("distance").getValue().toString())
           ));
         }
         //set RecyclerView

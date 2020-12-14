@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -47,8 +49,14 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapte
         //trash icon onclick handler
         holder.ivTrashId.setOnClickListener(view -> {
             //TODO: @Dennis
+            currShop.setHeartChecked(false);
+            FirebaseDatabase.getInstance().getReference("favorites").child(currentUser).child(currShop.getPhoneNumber()).removeValue();
+            //multiple toogles still happen this is a quick fix
+            Intent favoriteIntent = new Intent(context, FavoriteListActivity.class);
+            favoriteIntent.putExtra("username", currentUser);
+            context.startActivity(favoriteIntent);
         });
-        
+
     }
     private void openShopDetailsActivity(ShopJsonObj currShop) {
         Intent i = new Intent(context, ShopDetailsActivity.class);
