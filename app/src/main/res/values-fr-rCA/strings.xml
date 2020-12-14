@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AndroidFinalProjectCoffeeApp</string>
+    <string name="title_activity_maps">Carte</string>
+    <string name="SignUp">Inscription</string>
+    <string name="firstName">Prénom</string>
+    <string name="lastName">Nom de famille</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="email">Courriel</string>
+    <string name="password">Mot de passe</string>
+    <string name="register">Registre</string>
+    <string name="login">Connexion</string>
+    <string name="signInWith">ou se connecter avec</string>
+    <string name="newGetStartedNow">Nouveau ? Commencez !</string>
+    <string name="coffeeLocator">☕ Localisateur de café</string>
+    <string name="aNewWeek">Une nouvelle expérience chaque semaine</string>
+    <string name="saveNewProileImage">Enregistrer une nouvelle image de profil ?</string>
+    <string name="title_activity_maps2">Carte</string>
+    <string name="saveChanges">Sauvegarder les changements ?</string>
+    <string name="title_home">Page d\'accueil</string>
+    <string name="title_dashboard">Tableau de bord</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="address">Adresse</string>
+</resources>
