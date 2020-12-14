@@ -140,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void validateLoginInfo() {
         //openMapsActivity(null);
-        //    TODO: uncomment after - for now just login (very annoying to have to sign in every time)
             String username = usernameInput.getText().toString();
             String password = passwordInput.getText().toString();
             //check if username and password combination in the database

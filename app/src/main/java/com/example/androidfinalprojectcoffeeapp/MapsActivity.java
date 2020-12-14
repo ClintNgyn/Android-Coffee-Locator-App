@@ -302,7 +302,7 @@ public class MapsActivity extends SideNavigationBar
         break;
       case "SECOND CUP":
         // TODO: find second cup svg marker
-        id = R.drawable.ic_dunkin_donuts_marker;
+        id = R.drawable.ic_second_cup_marker;
         break;
     }
     return id;
