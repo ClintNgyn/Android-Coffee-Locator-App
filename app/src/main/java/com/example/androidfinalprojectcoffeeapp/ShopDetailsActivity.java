@@ -177,7 +177,7 @@ public class ShopDetailsActivity extends SideNavigationBar {
     //tvIsHeartCheckedId.setText(mShop.isHeartChecked() + "");
     if(!mShop.isHeartChecked()){
       isFav.setImageResource(R.drawable.ic_heart_uncolored);
-      tvIsHeartCheckedId.setText("Not added to favorites");
+      tvIsHeartCheckedId.setText(getResources().getString(R.string.not_added_to_favorites));
     }
     if(mShop.getType().equals("Tim Hortons")){
       tvTypeId.setTextColor(Color.RED);
