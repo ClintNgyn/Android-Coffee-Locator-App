@@ -112,7 +112,7 @@
               android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight="1"
-              android:text="Added to favorites"
+              android:text="@string/added_to_fav"
               android:textColor="@color/white"
               android:textSize="15sp"
               android:textStyle="bold" />
@@ -133,7 +133,7 @@
         android:shadowDy="2"
           android:backgroundTint="#023EA6"
         android:shadowRadius="4"
-        android:text="See Menu"
+        android:text="@string/see_menu"
         android:textColor="#f3f3f3"
         android:textSize="16sp" />
       <!-- End Button -->

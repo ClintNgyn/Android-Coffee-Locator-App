@@ -30,5 +30,12 @@
     <string name="open">Open Navigation Drawer</string>
     <string name="close">Close Navigation Drawer</string>
     <string name="phone">Phone</string>
+    <string name="added_to_fav">Added to favorites</string>
+    <string name="not_added_to_favorites">Not added to favorites</string>
+    <string name="see_menu">See Menu</string>
+    <string name="map">Map</string>
+    <string name="profile">Profile</string>
+    <string name="favorite">Favorite</string>
+    <string name="signout">Sign Out</string>
 
 </resources>
