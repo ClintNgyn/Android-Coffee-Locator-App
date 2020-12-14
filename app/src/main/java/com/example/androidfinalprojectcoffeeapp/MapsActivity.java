@@ -111,8 +111,10 @@ public class MapsActivity extends SideNavigationBar
           //Toast.makeText(MainActivity.this, "" + d.getKey(), Toast.LENGTH_SHORT).show();
         }
         if (!exists) {
-          User user = new User(account.getGivenName(), account.getFamilyName(),
-                               account.getGivenName() + account.getFamilyName() + "123", account.getEmail(), "",
+          User user = new User(account.getGivenName(),
+                               account.getFamilyName(),
+                               account.getGivenName() + account.getFamilyName() + "123",
+                               account.getEmail(), "",
                                account.getPhotoUrl().toString());
           FirebaseDatabase.getInstance().getReference("users").child(account.getId()).setValue(user);
           currentUser = account.getId();
