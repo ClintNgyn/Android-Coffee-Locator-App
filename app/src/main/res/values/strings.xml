@@ -16,19 +16,19 @@
     <string name="saveNewProileImage">Save New Profile Image ?</string>
     <string name="title_activity_maps2">Map</string>
     <string name="saveChanges">Save Changes?</string>
-    <string name="title_activity_testing">MainActivity</string>
+    <string name="title_activity_testing" translatable="false">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="title_activity_home_screen">MainActivity</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_home_screen" translatable="false">MainActivity</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="title_activity_new_maps">Map</string>
     <string name="address">Address</string>
-    <string name="favoriteicon">favoriteIcon</string>
-    <string name="starbucks">Starbucks</string>
-    <string name="info_icon">info icon</string>
-    <string name="open">Open Navigation Drawer</string>
-    <string name="close">Close Navigation Drawer</string>
+    <string name="favoriteicon" translatable="false">favoriteIcon</string>
+    <string name="starbucks" translatable="false">Starbucks</string>
+    <string name="info_icon" translatable="false">info icon</string>
+    <string name="open" translatable="false">Open Navigation Drawer</string>
+    <string name="close" translatable="false">Close Navigation Drawer</string>
     <string name="phone">Phone</string>
     <string name="added_to_fav">Added to favorites</string>
     <string name="not_added_to_favorites">Not added to favorites</string>
@@ -37,5 +37,19 @@
     <string name="profile">Profile</string>
     <string name="favorite">Favorite</string>
     <string name="signout">Sign Out</string>
+    <string name="foodName">"      Food Name "</string>
+    <string name="small">"  Small"</string>
+    <string name="medium">"  Medium"</string>
+    <string name="large">"  Large"</string>
+    <string name="nutInfo">Nutrition Information</string>
+    <string name="nutCalInfo">"        Nutrition information is calculated based on our standard recipes. Only changing drink size will update this information. "</string>
+    <string name="survingSize">"          Serving Size: "</string>
+    <string name="cals">"Calories  "</string>
+    <string name="totalFat">Total Fats</string>
+    <string name="cholesterol">"Cholesterol  "</string>
+    <string name="sodium">"Sodium  "</string>
+    <string name="totalCarb">"Total Carbohydrates  "</string>
+    <string name="protein">"Protein  "</string>
+    <string name="caff">"Caffeine  "</string>
 
 </resources>
