@@ -47,7 +47,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private View header;
-    private TextView headerName;
+    private TextView headerName, deleteAccount;
     private CircleImageView headerProfilePic;
 
     @Override
@@ -70,6 +70,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         headerName = header.findViewById(R.id.nav_header_name);
         headerProfilePic = header.findViewById(R.id.nav_header_profile_pic);
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
+        deleteAccount = findViewById(R.id.profile_deleteAccount);
 
         //get current user
         Intent intent = getIntent();
@@ -93,6 +94,13 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         profile_pic.setOnClickListener(view -> {
             openFileChooser();
             // startActivity(new Intent(ProfileActivity.this, temporary.class));
+        });
+        deleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseDatabase.getInstance().getReference("users").child(currentUser).removeValue();
+                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+            }
         });
 
         //TODO: add comments here

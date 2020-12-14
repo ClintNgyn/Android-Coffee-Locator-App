@@ -51,5 +51,6 @@
     <string name="totalCarb">"Total Carbohydrates  "</string>
     <string name="protein">"Protein  "</string>
     <string name="caff">"Caffeine  "</string>
+    <string name="delete_account">Delete Account</string>
 
 </resources>
