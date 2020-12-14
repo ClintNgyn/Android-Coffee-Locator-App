@@ -1,464 +1,464 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical"
-  android:paddingVertical="5dp"
-  tools:context=".MenuDetailsActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingVertical="5dp"
+    tools:context=".MenuDetailsActivity">
 
   <de.hdodenhof.circleimageview.CircleImageView
-    android:id="@+id/ivFoodImageId"
-    android:layout_width="180dp"
-    android:layout_height="230dp"
-    android:layout_marginTop="12dp"
-    android:background="@color/blue3"
-    android:scaleType="centerCrop" />
+      android:id="@+id/ivFoodImageId"
+      android:layout_width="180dp"
+      android:layout_height="230dp"
+      android:layout_marginTop="12dp"
+      android:background="@color/blue3"
+      android:scaleType="centerCrop" />
 
   <TextView
-    android:id="@+id/tvNameId"
-    android:layout_width="180dp"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/ivFoodImageId"
-    android:padding="4dp"
-    android:shadowColor="#2d2d2d"
-    android:shadowDx="1"
-    android:layout_marginTop="5dp"
-    android:shadowDy="1"
-    android:shadowRadius="2"
-    android:text="Food Name"
-    android:textAlignment="center"
-    android:textColor="#191919"
-    android:textSize="16sp"
-    android:textStyle="bold" />
+      android:id="@+id/tvNameId"
+      android:layout_width="180dp"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/ivFoodImageId"
+      android:padding="4dp"
+      android:shadowColor="#2d2d2d"
+      android:shadowDx="1"
+      android:layout_marginTop="5dp"
+      android:shadowDy="1"
+      android:shadowRadius="2"
+      android:text="@string/foodName"
+      android:textAlignment="center"
+      android:textColor="#191919"
+      android:textSize="16sp"
+      android:textStyle="bold" />
 
   <LinearLayout
-    android:id="@+id/SMLBtns"
-    android:layout_width="180dp"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/tvNameId"
-    android:gravity="center"
-    android:layout_marginTop="5dp"
-    android:orientation="vertical"
-    android:padding="5dp">
+      android:id="@+id/SMLBtns"
+      android:layout_width="180dp"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/tvNameId"
+      android:gravity="center"
+      android:layout_marginTop="5dp"
+      android:orientation="vertical"
+      android:padding="5dp">
 
     <!--  small btn  -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-      android:id="@+id/smallBtn"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginVertical="5dp"
-      android:gravity="center"
-      android:shadowColor="@color/menuColorBlack"
-      android:shadowDx="2"
-      android:shadowDy="2"
-      android:shadowRadius="3"
-      android:text="  Small"
-      android:textAllCaps="false"
-      android:textColor="#fff"
-      app:backgroundTint="@color/btnOrange"
-      app:rippleColor="@color/menuColorAccent" />
+        android:id="@+id/smallBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:gravity="center"
+        android:shadowColor="@color/menuColorBlack"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="3"
+        android:text="@string/small"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        app:backgroundTint="@color/btnOrange"
+        app:rippleColor="@color/menuColorAccent" />
 
     <!--    medium btn  -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-      android:id="@+id/mediumBtn"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginVertical="5dp"
-      android:gravity="center"
-      android:shadowColor="@color/menuColorBlack"
-      android:shadowDx="2"
-      android:shadowDy="2"
-      android:shadowRadius="3"
-      android:text="  Medium"
-      android:textAllCaps="false"
-      android:textColor="#fff"
-      app:backgroundTint="@color/menuColorPrimaryDark"/>
+        android:id="@+id/mediumBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:gravity="center"
+        android:shadowColor="@color/menuColorBlack"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="3"
+        android:text="@string/medium"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        app:backgroundTint="@color/menuColorPrimaryDark"/>
 
     <!--    large btn  -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-      android:id="@+id/largeBtn"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginVertical="5dp"
-      android:clickable="true"
-      android:gravity="center"
-      android:shadowColor="@color/menuColorBlack"
-      android:shadowDx="2"
-      android:shadowDy="2"
-      android:shadowRadius="3"
-      android:text="  Large"
-      android:textAllCaps="false"
-      android:textColor="#fff"
-      app:backgroundTint="@color/menuColorPrimaryDark"/>
+        android:id="@+id/largeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:clickable="true"
+        android:gravity="center"
+        android:shadowColor="@color/menuColorBlack"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="3"
+        android:text="@string/large"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        app:backgroundTint="@color/menuColorPrimaryDark"/>
   </LinearLayout>
 
   <LinearLayout
-    android:layout_width="230dp"
-    android:layout_height="wrap_content"
-    android:layout_alignParentRight="true"
-    android:orientation="vertical"
-    android:padding="5dp">
+      android:layout_width="230dp"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:orientation="vertical"
+      android:padding="5dp">
 
     <TextView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="Nutrition Information"
-      android:textColor="@color/menuColorBlack"
-      android:textSize="20sp"
-      android:textStyle="bold" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nutInfo"
+        android:textColor="@color/menuColorBlack"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="5dp"
-      android:text="Nutrition information is calculated based on our standard recipes. Only changing drink size will update this information."
-      android:textSize="14sp"
-      android:textStyle="italic" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/nutCalInfo"
+        android:textSize="14sp"
+        android:textStyle="italic" />
 
     <!--  Serving Size  -->
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="15dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
 
       <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Serving Size:  "
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/survingSize"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
 
       <TextView
-        android:id="@+id/tvServingSizeId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="16 oz"
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:id="@+id/tvServingSizeId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="16 oz"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
     </LinearLayout>
 
     <View
-      android:layout_width="match_parent"
-      android:layout_height="2dp"
-      android:layout_marginTop="10dp"
-      android:background="#B3B3B3" />
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:background="#B3B3B3" />
 
     <!--  Calories  -->
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="10dp"
-      android:layout_marginBottom="2dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="2dp">
 
       <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Calories  "
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/cals"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp"
+          android:textStyle="bold" />
 
       <TextView
-        android:id="@+id/tvCaloriesId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="520"
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:id="@+id/tvCaloriesId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="520"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
     </LinearLayout>
 
     <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginVertical="5dp"
-      android:background="#CCCCCC" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="5dp"
+        android:background="#CCCCCC" />
 
     <!--  Total Fats  -->
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginVertical="2dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="2dp">
 
       <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Total Fats  "
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/totalFat"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp"
+          android:textStyle="bold" />
 
       <TextView
-        android:id="@+id/tvTotalFatsId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="19 g"
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:id="@+id/tvTotalFatsId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="19 g"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
     </LinearLayout>
 
     <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginVertical="5dp"
-      android:background="#CCCCCC" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="5dp"
+        android:background="#CCCCCC" />
 
     <!--  Saturated Fats  -->
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginVertical="2dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="2dp">
 
       <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="&#160;&#160;&#160;Saturated Fats  "
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="&#160;&#160;&#160;Saturated Fats  "
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
 
       <TextView
-        android:id="@+id/tvSaturatedFatsId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="13 g"
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:id="@+id/tvSaturatedFatsId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="13 g"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
     </LinearLayout>
 
     <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginVertical="5dp"
-      android:background="#CCCCCC" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="5dp"
+        android:background="#CCCCCC" />
 
     <!--  Trans Fats  -->
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginVertical="2dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="2dp">
 
       <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="&#160;&#160;&#160;Trans Fats "
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="&#160;&#160;&#160;Trans Fats "
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
 
       <TextView
-        android:id="@+id/tvTransFatsId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0.5 g"
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:id="@+id/tvTransFatsId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="0.5 g"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
     </LinearLayout>
 
     <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginVertical="5dp"
-      android:background="#CCCCCC" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="5dp"
+        android:background="#CCCCCC" />
 
     <!--  Cholesterol  -->
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginVertical="2dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="2dp">
 
       <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cholesterol  "
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/cholesterol"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp"
+          android:textStyle="bold" />
 
       <TextView
-        android:id="@+id/tvCholesterolId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="50 mg"
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:id="@+id/tvCholesterolId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="50 mg"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
     </LinearLayout>
 
     <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginVertical="5dp"
-      android:background="#CCCCCC" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="5dp"
+        android:background="#CCCCCC" />
 
     <!--  Sodium  -->
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginVertical="2dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="2dp">
 
       <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sodium  "
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/sodium"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp"
+          android:textStyle="bold" />
 
       <TextView
-        android:id="@+id/tvSodiumId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="260 mg"
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:id="@+id/tvSodiumId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="260 mg"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
     </LinearLayout>
 
     <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginVertical="5dp"
-      android:background="#CCCCCC" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="5dp"
+        android:background="#CCCCCC" />
 
     <!--  Total Carbohydrates  -->
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginVertical="2dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="2dp">
 
       <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Total Carbohydrates  "
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/totalCarb"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp"
+          android:textStyle="bold" />
 
       <TextView
-        android:id="@+id/tvTotalCarbohydrateId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="75 g"
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:id="@+id/tvTotalCarbohydrateId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="75 g"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
     </LinearLayout>
 
     <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginVertical="5dp"
-      android:background="#CCCCCC" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="5dp"
+        android:background="#CCCCCC" />
 
     <!--  Dietary Fiber  -->
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginVertical="2dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="2dp">
 
       <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="&#160;&#160;&#160;Dietary Fiber  "
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="&#160;&#160;&#160;Dietary Fiber  "
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
 
       <TextView
-        android:id="@+id/tvFiberId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0 g"
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:id="@+id/tvFiberId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="0 g"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
     </LinearLayout>
 
     <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginVertical="5dp"
-      android:background="#CCCCCC" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="5dp"
+        android:background="#CCCCCC" />
 
     <!--  Sugar  -->
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginVertical="2dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="2dp">
 
       <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="&#160;&#160;&#160;Sugar  "
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="&#160;&#160;&#160;Sugar  "
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
 
       <TextView
-        android:id="@+id/tvSugarId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="74 g"
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:id="@+id/tvSugarId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="74 g"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
     </LinearLayout>
 
     <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginVertical="5dp"
-      android:background="#CCCCCC" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="5dp"
+        android:background="#CCCCCC" />
 
     <!--  Protein  -->
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginVertical="2dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="2dp">
 
       <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Protein  "
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/protein"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp"
+          android:textStyle="bold" />
 
       <TextView
-        android:id="@+id/tvProteinId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="15 g"
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:id="@+id/tvProteinId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="15 g"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
     </LinearLayout>
 
     <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginVertical="5dp"
-      android:background="#CCCCCC" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="5dp"
+        android:background="#CCCCCC" />
 
     <!--  Caffeine  -->
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginVertical="2dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="2dp">
 
       <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Caffeine  "
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/caff"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp"
+          android:textStyle="bold" />
 
       <TextView
-        android:id="@+id/tvCaffeineId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0 mg"
-        android:textColor="@color/menuColorBlack"
-        android:textSize="15sp" />
+          android:id="@+id/tvCaffeineId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="0 mg"
+          android:textColor="@color/menuColorBlack"
+          android:textSize="15sp" />
     </LinearLayout>
 
     <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginVertical="5dp"
-      android:background="#CCCCCC" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="5dp"
+        android:background="#CCCCCC" />
   </LinearLayout>
 </RelativeLayout>

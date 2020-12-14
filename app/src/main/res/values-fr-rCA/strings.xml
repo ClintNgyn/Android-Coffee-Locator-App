@@ -21,4 +21,27 @@
     <string name="title_dashboard">Tableau de bord</string>
     <string name="title_notifications">Notifications</string>
     <string name="address">Adresse</string>
+    <string name="phone">"Téléphone "</string>
+    <string name="added_to_fav">Ajouté aux favoris</string>
+    <string name="not_added_to_favorites">Non ajouté aux favoris</string>
+    <string name="see_menu">Voir le menu</string>
+    <string name="map">Carte</string>
+    <string name="profile">Profil</string>
+    <string name="favorite">Favoris</string>
+    <string name="signout">Déconnexion</string>
+    <string name="foodName">"      Nom de l'aliment "</string>
+    <string name="small">"     Petit"</string>
+    <string name="medium">"    Moyen"</string>
+    <string name="large">"    Grand"</string>
+    <string name="nutInfo">Informations sur la nutrition</string>
+    <string name="nutCalInfo">"        Les informations nutritionnelles sont calculées sur la base de nos recettes standard. Seule la modification de la taille des boissons permet d'actualiser ces informations. "</string>
+    <string name="survingSize">"          Taille des portions : "</string>
+    <string name="cals">"Calories  "</string>
+    <string name="totalFat">Total des graisses</string>
+    <string name="cholesterol">"Cholestérol  "</string>
+    <string name="sodium">"Sodium  "</string>
+    <string name="totalCarb">"Total des glucides  "</string>
+    <string name="protein">Protéines</string>
+    <string name="caff">"Caféine  "</string>
+    <string name="title_activity_new_maps">Carte</string>
 </resources>
