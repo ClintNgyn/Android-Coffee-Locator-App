@@ -155,7 +155,17 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
+        <TextView
+            android:id="@+id/profile_deleteAccount"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="15dp"
+            android:textColor="@color/red1"
+            android:text="@string/delete_account"/>
     </LinearLayout>
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/profile_nav"
