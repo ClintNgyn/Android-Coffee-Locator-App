@@ -1,5 +1,6 @@
 package com.example.androidfinalprojectcoffeeapp;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,10 +8,12 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,8 +38,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,14 +51,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MapsActivity extends SideNavigationBar
     implements OnMapReadyCallback {
   
+  private final double EARTH_RADIUS_KM = 6372.8;
+  private final LatLng CURR_LOCATION = new LatLng(45.5056156, -73.6159479);
+  private GoogleSignInClient mGoogleSignInClient;
   private GoogleMap mMap;
   
   private String currentUser;
   private boolean isGoogleSignIn;
   
   private List<ShopJsonObj> shopJsonObjsList = new ArrayList<>();
+  
   private RecyclerView rvShopsListId;
-  private GoogleSignInClient mGoogleSignInClient;
+  private RelativeLayout mapRL;
+  
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +72,7 @@ public class MapsActivity extends SideNavigationBar
     
     //link views
     rvShopsListId = findViewById(R.id.rvShopsListId);
+    mapRL = findViewById(R.id.mapRL);
     
     //from SideNavigationBar abstract class
     drawerLayoutId = findViewById(R.id.maps_drawerlayout);
@@ -93,6 +104,10 @@ public class MapsActivity extends SideNavigationBar
       fetchNavHeaderInfo();
     }
     
+  }
+  
+  private void zoomToCurrLocation() {
+    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(CURR_LOCATION, 13.4f));
   }
   
   public void getGoogleAccountInfo() {
@@ -223,15 +238,36 @@ public class MapsActivity extends SideNavigationBar
    */
   @Override
   public void onMapReady(GoogleMap googleMap) {
+    //set location btn
+    //TODO: fix this - button behind map fragment
+    CircleImageView civ = new CircleImageView(this);
+    civ.setOnClickListener(view -> zoomToCurrLocation());
+  
+    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(50, 50);
+    params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+    params.setMargins(20, 20, 20, 20);
+  
+    civ.setLayoutParams(params);
+    mapRL.addView(civ);
+  
     mMap = googleMap;
-    
-    //TODO: get device's location
-    //moving camera to montreal
-    LatLng montreal = new LatLng(45.4774675, -73.6080016);
-    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(montreal, 13.4f));
-    
+  
+    //set and get location
+    setUpLocation();
+  
+    //moving camera to current location (cote vertu)
+    zoomToCurrLocation();
+  
+    //pin location
+    mMap.addMarker(new MarkerOptions().position(CURR_LOCATION)
+                                      .icon(getBitmapDescriptorFromVector(this, R.drawable.ic_my_location_marker_icon)));
+  
     //get shops from json
     getShops();
+  }
+  
+  private void setUpLocation() {
+    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1001);
   }
   
   /**
@@ -249,29 +285,72 @@ public class MapsActivity extends SideNavigationBar
         if (!response.isSuccessful()) {
           return;
         }
-        
+  
         //storing locations in jsonObjectsList
         shopJsonObjsList = response.body();
-        
-        //adding markers of shops
+  
+        //adding markers of shops to map
+        //calculating distance from current location
         for (ShopJsonObj currShop : shopJsonObjsList) {
-          mMap.addMarker(new MarkerOptions()
-                             .position(new LatLng(Double.parseDouble(currShop.getLatitude()),
-                                                  Double.parseDouble(currShop.getLongitude())))
-                             .title(currShop.getType())
-                             .icon(getBitmapDescriptorFromVector(getApplicationContext(), getVectorId(currShop.getType()))));
+          String type = currShop.getType();
+          double currLat = Double.parseDouble(currShop.getLatitude());
+          double currLng = Double.parseDouble(currShop.getLongitude());
+    
+          //marker
+          mMap.addMarker(new MarkerOptions().position(new LatLng(currLat, currLng))
+                                            .title(type)
+                                            .icon(getBitmapDescriptorFromVector(getApplicationContext(), getVectorId(type))));
+    
+          //find distance from current location
+          currShop.setDistance(Math.ceil(
+              haverineFormula(CURR_LOCATION.latitude, CURR_LOCATION.longitude, currLat, currLng))
+                               * 100 / 100.0);
         }
   
+        //sort shopJsonObjsList by closest to farthest
+        Collections.sort(shopJsonObjsList, (a, b) -> {
+          if (a.getDistance() < b.getDistance()) {
+            return -1;
+          } else if (a.getDistance() > b.getDistance()) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
   
         //display shops in rvShopsListId
         displayShops();
       }
-      
+  
       @Override
       public void onFailure(Call<List<ShopJsonObj>> call, Throwable t) {
-      
+    
       }
     });
+  }
+  
+  /**
+   * Haversine formula.
+   * Giving great-circle distances between two points on a sphere from their longitudes and latitudes.
+   * It is a special case of a more general formula in spherical trigonometry, the law of haversines, relating the
+   * sides and angles of spherical "triangles".
+   *
+   * @param sLat start latitude
+   * @param sLng start longitude
+   * @param eLat end latitude
+   * @param eLng end longitude
+   * @return distance in kilometers
+   */
+  private double haverineFormula(double sLat, double sLng, double eLat, double eLng) {
+    //convert to radians
+    double diffLat = Math.toRadians(eLat - sLat);
+    double diffLng = Math.toRadians(eLng - sLng);
+    double originLat = Math.toRadians(sLat);
+    double destinationLat = Math.toRadians(eLat);
+    
+    return EARTH_RADIUS_KM * 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(diffLat / 2), 2) +
+                                                     Math.pow(Math.sin(diffLng / 2), 2) * Math.cos(originLat) *
+                                                     Math.cos(destinationLat)));
   }
   
   /**
@@ -290,7 +369,7 @@ public class MapsActivity extends SideNavigationBar
    * @return a different vector based on what shop it is.
    */
   private int getVectorId(String type) {
-    int id = 0;
+    int id = R.drawable.ic_star_icon;
     
     switch (type.toUpperCase()) {
       case "STARBUCKS":
@@ -305,9 +384,8 @@ public class MapsActivity extends SideNavigationBar
       case "SECONDCUP":
         id = R.drawable.ic_second_cup_marker;
         break;
-      default:
-        id = R.drawable.ic_second_cup_marker;
     }
+  
     return id;
   }
   
