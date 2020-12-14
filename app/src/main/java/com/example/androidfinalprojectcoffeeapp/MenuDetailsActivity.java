@@ -112,17 +112,17 @@ public class MenuDetailsActivity extends AppCompatActivity {
    * Update the UI to match the item's nutrition facts with size (small, medium, large)
    */
   private void updateNutritionFacts(double size) {
-    tvServingSizeId.setText(Integer.parseInt(currMenu.getServingSizes()) * size + " fl oz");
+    tvServingSizeId.setText(Double.parseDouble(currMenu.getServingSizes()) * size + " fl oz");
     tvCaloriesId.setText(currMenu.getCalories() * size + "");
-    tvTotalFatsId.setText(Integer.parseInt(currMenu.getTotalFats()) * size + " g");
-    tvSaturatedFatsId.setText(Integer.parseInt(currMenu.getSaturatedFats()) * size + " g");
-    tvTransFatsId.setText(Integer.parseInt(currMenu.getTransFats()) * size + " g");
-    tvCholesterolId.setText(Integer.parseInt(currMenu.getCholesterol()) * size + " mg");
-    tvSodiumId.setText(Integer.parseInt(currMenu.getSodium()) * size + " mg");
-    tvTotalCarbohydrateId.setText(Integer.parseInt(currMenu.getTotalCarbohydrates()) * size + " g");
-    tvFiberId.setText(Integer.parseInt(currMenu.getDiataryFiber()) * size + " g");
-    tvSugarId.setText(Integer.parseInt(currMenu.getSugar()) * size + " g");
-    tvProteinId.setText(Integer.parseInt(currMenu.getProtein()) * size + " g");
-    tvCaffeineId.setText(Integer.parseInt(currMenu.getCaffeine()) * size + " mg");
+    tvTotalFatsId.setText(Double.parseDouble(currMenu.getTotalFats()) * size + " g");
+    tvSaturatedFatsId.setText(Double.parseDouble(currMenu.getSaturatedFats()) * size + " g");
+    tvTransFatsId.setText(Double.parseDouble(currMenu.getTransFats()) * size + " g");
+    tvCholesterolId.setText(Double.parseDouble(currMenu.getCholesterol()) * size + " mg");
+    tvSodiumId.setText(Double.parseDouble(currMenu.getSodium()) * size + " mg");
+    tvTotalCarbohydrateId.setText(Double.parseDouble(currMenu.getTotalCarbohydrates()) * size + " g");
+    tvFiberId.setText(Double.parseDouble(currMenu.getDiataryFiber()) * size + " g");
+    tvSugarId.setText(Double.parseDouble(currMenu.getSugar()) * size + " g");
+    tvProteinId.setText(Double.parseDouble(currMenu.getProtein()) * size + " g");
+    tvCaffeineId.setText(Double.parseDouble(currMenu.getCaffeine()) * size + " mg");
   }
 }

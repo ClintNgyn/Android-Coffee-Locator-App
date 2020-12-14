@@ -6,6 +6,8 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface ShopJsonPlaceHolder {
-    @GET("d7fe1a8605c44549e63b")
-    Call<List<ShopJsonObj>> getShopJsonPlaceHolder();
+  //starbucks
+  //@GET("d7fe1a8605c44549e63b")
+  @GET("fc1a61ff3a7c7fb45993")
+  Call<List<ShopJsonObj>> getShopJsonPlaceHolder();
 }

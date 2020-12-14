@@ -128,14 +128,12 @@ public class ShopDetailsActivity extends SideNavigationBar {
         break;
       }
       
-      // TODO: implement favs activity
-      
-      //      case R.id.nav_favs: {
-      //        Intent intent = new Intent(this, Favorites.class);
-      //        intent.putExtra("username", currUser);
-      //        startActivity(intent);
-      //        break;
-      //      }
+      case R.id.favorite_list_nav: {
+        Intent intent = new Intent(this, FavoriteListActivity.class);
+        intent.putExtra("username", currUser);
+        startActivity(intent);
+        break;
+      }
       
       case R.id.nav_signOut:
         startActivity(new Intent(this, MainActivity.class));

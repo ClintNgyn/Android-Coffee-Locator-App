@@ -297,13 +297,14 @@ public class MapsActivity extends SideNavigationBar
       case "TIM HORTONS":
         id = R.drawable.ic_tim_hortons_marker;
         break;
-      case "DUNKIN DONUTS":
+      case "DUNKINDONUTS":
         id = R.drawable.ic_dunkin_donuts_marker;
         break;
-      case "SECOND CUP":
-        // TODO: find second cup svg marker
+      case "SECONDCUP":
         id = R.drawable.ic_second_cup_marker;
         break;
+      default:
+        id = R.drawable.ic_second_cup_marker;
     }
     return id;
   }
