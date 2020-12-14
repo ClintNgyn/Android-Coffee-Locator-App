@@ -2,13 +2,11 @@ package com.example.androidfinalprojectcoffeeapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -20,13 +18,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMapsRecyclerView> {
-  private Context context;
-  private List<ShopJsonObj> shopsList;
-  private String currentUser;
+  private final Context context;
+  private final List<ShopJsonObj> shopsList;
+  private final String currentUser;
   
   public ShopAdapter(Context context, List<ShopJsonObj> shopsList, String currentUser) {
     this.context = context;
@@ -44,26 +41,43 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
   
   @Override
   public void onBindViewHolder(@NonNull ViewHolderOfMapsRecyclerView holder, int position) {
-    holder.tvTypeId.setText(shopsList.get(position).getType());
-    holder.tvAddressId.setText(shopsList.get(position).getAddress());
-    holder.ivFavsId.setImageResource(shopsList.get(position).isHeartChecked() ?
-                                     R.drawable.ic_heart_colored :
-                                     R.drawable.ic_heart_uncolored);
+    ShopJsonObj currShop = shopsList.get(position);
+  
+    //check isHeartChecked
+    FirebaseDatabase.getInstance().getReference("favorites/" + currentUser).addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot snapshot) {
+        for (DataSnapshot d : snapshot.getChildren()) {
+          if (d.getKey().equals(currShop.getPhoneNumber())) {
+            currShop.setHeartChecked(true);
+          }
+        }
+      
+        holder.tvTypeId.setText(currShop.getType());
+        holder.tvAddressId.setText(currShop.getAddress());
+        holder.ivFavsId.setImageResource(currShop.isHeartChecked() ? R.drawable.ic_heart_colored : R.drawable.ic_heart_uncolored);
+      }
     
+      @Override
+      public void onCancelled(@NonNull DatabaseError error) {
+      
+      }
+    });
+  
     // set ivFavsId onclick handler
     holder.ivFavsId.setOnClickListener(view -> {
-      boolean isHeartChecked = shopsList.get(position).isHeartChecked();
+      boolean isHeartChecked = currShop.isHeartChecked();
       DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("favorites");
-      
+    
       if (!isHeartChecked) {
         holder.ivFavsId.setImageResource(R.drawable.ic_heart_colored);
-        shopsList.get(position).setHeartChecked(true);
+        currShop.setHeartChecked(true);
         mDatabaseRef.push().getKey();
-        mDatabaseRef.child(currentUser).child(shopsList.get(position).getPhoneNumber()).setValue(shopsList.get(position));
+        mDatabaseRef.child(currentUser).child(currShop.getPhoneNumber()).setValue(currShop);
       } else {
         holder.ivFavsId.setImageResource(R.drawable.ic_heart_uncolored);
-        shopsList.get(position).setHeartChecked(false);
-        mDatabaseRef.child(currentUser).child(shopsList.get(position).getPhoneNumber()).removeValue();
+        currShop.setHeartChecked(false);
+        mDatabaseRef.child(currentUser).child(currShop.getPhoneNumber()).removeValue();
       }
       
       notifyItemChanged(position);
@@ -72,13 +86,13 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
     // set ivInfoBtnId onclick handler
     holder.ivInfoBtnId.setOnClickListener(view -> {
       // open ShopDetails Activity
-      openShopDetailsActivity(shopsList.get(position));
+      openShopDetailsActivity(currShop);
     });
     
     // set cvCardViewId onclick handler
     holder.cvCardViewId.setOnClickListener(view -> {
       // open ShopDetails Activity
-      openShopDetailsActivity(shopsList.get(position));
+      openShopDetailsActivity(currShop);
     });
   }
   
@@ -95,9 +109,11 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
   
   
   public static class ViewHolderOfMapsRecyclerView extends RecyclerView.ViewHolder {
-    private CardView cvCardViewId;
-    private ImageView ivFavsId, ivInfoBtnId;
-    private TextView tvTypeId, tvAddressId;
+    private final CardView cvCardViewId;
+    private final ImageView ivFavsId;
+    private final ImageView ivInfoBtnId;
+    private final TextView tvTypeId;
+    private final TextView tvAddressId;
     
     
     private ViewHolderOfMapsRecyclerView(@NonNull View itemView) {

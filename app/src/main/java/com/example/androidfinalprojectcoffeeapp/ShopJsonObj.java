@@ -22,8 +22,9 @@ public class ShopJsonObj implements Serializable {
         this.lat = lat;
         this.longitude = longitude;
         this.isHeartChecked = isHeartChecked;
+    
     }
-
+    
     public String getImg() {
         return img;
     }
