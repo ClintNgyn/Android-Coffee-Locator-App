@@ -44,51 +44,29 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
   
   @Override
   public void onBindViewHolder(@NonNull ViewHolderOfMapsRecyclerView holder, int position) {
-    
-    shopsList.get(position).setHeartChecked(false);
     holder.tvTypeId.setText(shopsList.get(position).getType());
     holder.tvAddressId.setText(shopsList.get(position).getAddress());
-    holder.ivFavsId.setImageResource(R.drawable.ic_heart_uncolored);
-    
-    
-    FirebaseDatabase.getInstance().getReference("favorites").child(currentUser).addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(@NonNull DataSnapshot snapshot) {
-        for (DataSnapshot d : snapshot.getChildren()) {
-          if (shopsList.get(position).getPhoneNumber().equals(d.getKey())) {
-            holder.ivFavsId.setImageResource(R.drawable.ic_heart_colored);
-            shopsList.get(position).setHeartChecked(true);
-          }
-        }
-      }
-      
-      @Override
-      public void onCancelled(@NonNull DatabaseError error) {
-      
-      }
-    });
+    holder.ivFavsId.setImageResource(shopsList.get(position).isHeartChecked() ?
+                                     R.drawable.ic_heart_colored :
+                                     R.drawable.ic_heart_uncolored);
     
     // set ivFavsId onclick handler
-    holder.ivFavsId.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        boolean isHeartChecked = shopsList.get(position).isHeartChecked();
-        DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("favorites");
-        // toggle heartp
-        //holder.ivFavsId.setImageResource(isHeartChecked ? R.drawable.ic_heart_uncolored : R.drawable.ic_heart_colored);
-        if (!isHeartChecked) {
-          holder.ivFavsId.setImageResource(R.drawable.ic_heart_colored);
-          shopsList.get(position).setHeartChecked(true);
-          mDatabaseRef.push().getKey();
-          mDatabaseRef.child(currentUser).child(shopsList.get(position).getPhoneNumber()).setValue(shopsList.get(position));
-        } else {
-          holder.ivFavsId.setImageResource(R.drawable.ic_heart_uncolored);
-          mDatabaseRef.child(currentUser).child(shopsList.get(position).getPhoneNumber()).removeValue();
-          shopsList.get(position).setHeartChecked(false);
-        }
-        
-        //set isHeartChecked to !isHeartChecked
+    holder.ivFavsId.setOnClickListener(view -> {
+      boolean isHeartChecked = shopsList.get(position).isHeartChecked();
+      DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("favorites");
+      
+      if (!isHeartChecked) {
+        holder.ivFavsId.setImageResource(R.drawable.ic_heart_colored);
+        shopsList.get(position).setHeartChecked(true);
+        mDatabaseRef.push().getKey();
+        mDatabaseRef.child(currentUser).child(shopsList.get(position).getPhoneNumber()).setValue(shopsList.get(position));
+      } else {
+        holder.ivFavsId.setImageResource(R.drawable.ic_heart_uncolored);
+        shopsList.get(position).setHeartChecked(false);
+        mDatabaseRef.child(currentUser).child(shopsList.get(position).getPhoneNumber()).removeValue();
       }
+      
+      notifyItemChanged(position);
     });
     
     // set ivInfoBtnId onclick handler
