@@ -99,6 +99,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             @Override
             public void onClick(View view) {
                 FirebaseDatabase.getInstance().getReference("users").child(currentUser).removeValue();
+                FirebaseDatabase.getInstance().getReference("favorites").child(currentUser).removeValue();
                 startActivity(new Intent(ProfileActivity.this, MainActivity.class));
             }
         });
