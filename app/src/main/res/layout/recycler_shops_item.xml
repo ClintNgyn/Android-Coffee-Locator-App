@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cvCardViewId"
-    android:layout_width="match_parent"
-    android:layout_height="96dp"
-    android:layout_margin="5dp"
-    android:clickable="true"
-    android:focusable="false"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:orientation="horizontal"
-    android:padding="2dp"
-    app:cardCornerRadius="4dp">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/cvCardViewId"
+  android:layout_width="match_parent"
+  android:layout_height="110dp"
+  android:layout_margin="5dp"
+  android:clickable="true"
+  android:focusable="false"
+  android:foreground="?android:attr/selectableItemBackground"
+  android:orientation="horizontal"
+  android:padding="2dp"
+  app:cardCornerRadius="4dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="3dp">
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="horizontal"
+      android:padding="3dp">
 
         <ImageView
-            android:id="@+id/ivFavsId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/favoriteicon"
-            android:padding="10dp"
-            android:src="@drawable/ic_heart_uncolored" />
+          android:id="@+id/ivFavsId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:contentDescription="@string/favoriteicon"
+          android:padding="10dp"
+          android:src="@drawable/ic_heart_uncolored" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -34,25 +34,35 @@
             android:paddingHorizontal="5dp">
 
             <TextView
-                android:id="@+id/tvTypeId"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:gravity="center_vertical"
-                android:text="@string/starbucks"
-                android:textColor="@color/menuColorBlack"
-                android:textSize="19sp"
-                android:textStyle="bold" />
+              android:id="@+id/tvTypeId"
+              android:layout_width="240dp"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="6dp"
+              android:gravity="center_vertical"
+              android:text="@string/starbucks"
+              android:textColor="@color/menuColorBlack"
+              android:textSize="19sp"
+              android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvAddressId"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:gravity="center_vertical"
-                android:text="@string/address"
-                android:textColor="@color/menuColorBlack"
-                android:textSize="14sp" />
+              android:id="@+id/tvAddressId"
+              android:layout_width="240dp"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:gravity="center_vertical"
+              android:text="@string/address"
+              android:textColor="@color/menuColorBlack"
+              android:textSize="14sp" />
+
+            <TextView
+              android:id="@+id/tvDistanceId"
+              android:layout_width="240dp"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="6dp"
+              android:gravity="center_vertical"
+              android:text=""
+              android:textColor="@color/menuColorBlack"
+              android:textSize="14sp" />
         </LinearLayout>
 
         <ImageView

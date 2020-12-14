@@ -11,14 +11,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.fragment.app.FragmentContainerView
-      android:id="@+id/map"
-      android:name="com.google.android.gms.maps.SupportMapFragment"
+    <RelativeLayout
+      android:id="@+id/mapRL"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_weight="1"
-      tools:context=".MapsActivity"
-      tools:layout="@layout/activity_maps" />
+      android:layout_weight="1">
+
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/myLocationBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp" />
+
+      <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity"
+        tools:layout="@layout/activity_maps" />
+    </RelativeLayout>
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -60,10 +73,10 @@
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:background="@color/menuColorBlack"
-    app:itemTextColor="#f3f3f3"
-    app:itemIconSize="29dp"
     android:fitsSystemWindows="true"
     app:headerLayout="@layout/nav_header"
+    app:itemIconSize="29dp"
+    app:itemTextColor="#f3f3f3"
     app:menu="@menu/side_nav_menu"
     tools:operDrawer="start" />
 

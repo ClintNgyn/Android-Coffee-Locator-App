@@ -52,12 +52,13 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
             currShop.setHeartChecked(true);
           }
         }
-      
+  
         holder.tvTypeId.setText(currShop.getType());
         holder.tvAddressId.setText(currShop.getAddress());
         holder.ivFavsId.setImageResource(currShop.isHeartChecked() ? R.drawable.ic_heart_colored : R.drawable.ic_heart_uncolored);
+        holder.tvDistanceId.setText(currShop.getDistance() + " km away");
       }
-    
+  
       @Override
       public void onCancelled(@NonNull DatabaseError error) {
       
@@ -68,7 +69,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
     holder.ivFavsId.setOnClickListener(view -> {
       boolean isHeartChecked = currShop.isHeartChecked();
       DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("favorites");
-    
+  
       if (!isHeartChecked) {
         holder.ivFavsId.setImageResource(R.drawable.ic_heart_colored);
         currShop.setHeartChecked(true);
@@ -114,6 +115,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
     private final ImageView ivInfoBtnId;
     private final TextView tvTypeId;
     private final TextView tvAddressId;
+    private final TextView tvDistanceId;
     
     
     private ViewHolderOfMapsRecyclerView(@NonNull View itemView) {
@@ -125,6 +127,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
       tvTypeId = itemView.findViewById(R.id.tvTypeId);
       tvAddressId = itemView.findViewById(R.id.tvAddressId);
       ivInfoBtnId = itemView.findViewById(R.id.ivInfoBtnId);
+      tvDistanceId = itemView.findViewById(R.id.tvDistanceId);
     }
   }
 }
