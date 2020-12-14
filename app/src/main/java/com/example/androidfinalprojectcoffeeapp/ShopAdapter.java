@@ -121,7 +121,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolderOfMa
   
   private void openShopDetailsActivity(ShopJsonObj currShop) {
     Intent i = new Intent(context, ShopDetailsActivity.class);
-    i.putExtra("currShop", (Serializable) currShop);
+    i.putExtra("currShop", currShop);
     context.startActivity(i);
   }
   
