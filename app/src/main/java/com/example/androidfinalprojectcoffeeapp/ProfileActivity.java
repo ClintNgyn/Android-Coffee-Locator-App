@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,13 +50,19 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     private View header;
     private TextView headerName, deleteAccount;
     private CircleImageView headerProfilePic;
+    private ImageView ivNavToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
+    
         //link views
+        ivNavToolbar = findViewById(R.id.ivNavToolbar);
+        ivNavToolbar.setOnClickListener(view -> {
+            drawerLayout.openDrawer(GravityCompat.START);
+        });
+    
         profile_pic = findViewById(R.id.profile_image);
         firstName = findViewById(R.id.profile_first_name);
         lastName = findViewById(R.id.profile_last_name);
@@ -225,16 +232,24 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 mapIntent.putExtra("username", currentUser);
                 startActivity(mapIntent);
                 break;
-
+    
             case R.id.nav_favorites:
                 Intent favoritesIntent = new Intent(this, FavoriteListActivity.class);
                 favoritesIntent.putExtra("username", currentUser);
                 startActivity(favoritesIntent);
                 break;
-
+    
             case R.id.nav_signOut:
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
+                break;
+    
+            case R.id.nav_about:
+                String m =
+                    "This app allows different users to view coffee stores near by, users can add their favorite coffee store so" +
+                    " that he\\she can get their favorite cup of coffee as soon as possible";
+        
+                Toast.makeText(this, m, Toast.LENGTH_LONG).show();
                 break;
         }
 
