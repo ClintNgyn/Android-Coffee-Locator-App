@@ -151,7 +151,7 @@ public class FavoriteListActivity extends SideNavigationBar {
         drawerLayoutId.addDrawerListener(toggle);
         toggle.syncState();
         navViewId.setNavigationItemSelectedListener(this);
-        navViewId.setCheckedItem(R.id.nav_map);
+        navViewId.setCheckedItem(R.id.nav_favorites);
     }
 
     /**

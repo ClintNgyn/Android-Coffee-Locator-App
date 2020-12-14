@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(signInIntent, RC_SIGN_IN);
         });
 
-
         // signUpButton onclick handler
         signUpButton.setOnClickListener(v -> openSignUpActivity());
 
@@ -126,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             // Signed in successfully, show authenticated UI.
             System.out.println(account.getEmail());
             Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+            intent.putExtra("isGoogleSignIn", true);
             startActivity(intent);
 
         } catch (ApiException e) {

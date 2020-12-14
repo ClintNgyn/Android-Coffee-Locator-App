@@ -45,282 +45,287 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MapsActivity extends SideNavigationBar
-        implements OnMapReadyCallback {
-
-    private GoogleMap mMap;
-    private String currentUser;
-
-    private List<ShopJsonObj> shopJsonObjsList = new ArrayList<>();
-    private RecyclerView rvShopsListId;
-    private GoogleSignInClient mGoogleSignInClient;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        //get intent data from MainActivity
-        currentUser = getIntent().getStringExtra("username");
-
-        if (currentUser == null) {
-            getGoogleAccountInfo();
+    implements OnMapReadyCallback {
+  
+  private GoogleMap mMap;
+  
+  private String currentUser;
+  private boolean isGoogleSignIn;
+  
+  private List<ShopJsonObj> shopJsonObjsList = new ArrayList<>();
+  private RecyclerView rvShopsListId;
+  private GoogleSignInClient mGoogleSignInClient;
+  
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_maps);
+    
+    //link views
+    rvShopsListId = findViewById(R.id.rvShopsListId);
+    
+    //from SideNavigationBar abstract class
+    drawerLayoutId = findViewById(R.id.maps_drawerlayout);
+    navViewId = findViewById(R.id.maps_nav);
+    navHeader = navViewId.getHeaderView(0);
+    tvNavHeaderName = navHeader.findViewById(R.id.nav_header_name);
+    navHeaderPfp = navHeader.findViewById(R.id.nav_header_profile_pic);
+    
+    // Configure sign-in to request the user's ID, email address, and basic
+    // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+    
+    // Build a GoogleSignInClient with the options specified by gso.
+    mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+    
+    // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+    mapFragment.getMapAsync(this);
+    
+    //get intent data from MainActivity
+    currentUser = getIntent().getStringExtra("username");
+    isGoogleSignIn = getIntent().getBooleanExtra("isGoogleSignIn", false);
+    
+    if (isGoogleSignIn) {
+      getGoogleAccountInfo();
+    } else {
+      //init nav bar
+      initNavBar();
+      fetchNavHeaderInfo();
+    }
+    
+  }
+  
+  public void getGoogleAccountInfo() {
+    GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+    FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot snapshot) {
+        boolean exists = false;
+        
+        for (DataSnapshot d : snapshot.getChildren()) {
+          if (d.getKey().equals(account.getId())) {
+            currentUser = account.getId();
+            exists = true;
+          }
+          //Toast.makeText(MainActivity.this, "" + d.getKey(), Toast.LENGTH_SHORT).show();
         }
-
-        //link views
-        rvShopsListId = findViewById(R.id.rvShopsListId);
-
-        //from SideNavigationBar abstract class
-        drawerLayoutId = findViewById(R.id.maps_drawerlayout);
-        navViewId = findViewById(R.id.maps_nav);
-        navHeader = navViewId.getHeaderView(0);
-        tvNavHeaderName = navHeader.findViewById(R.id.nav_header_name);
-        navHeaderPfp = navHeader.findViewById(R.id.nav_header_profile_pic);
-
-        //init nav bar
+        if (!exists) {
+          User user = new User(account.getGivenName(), account.getFamilyName(),
+                               account.getGivenName() + account.getFamilyName() + "123", account.getEmail(), "",
+                               account.getPhotoUrl().toString());
+          FirebaseDatabase.getInstance().getReference("users").child(account.getId()).setValue(user);
+          currentUser = account.getId();
+        }
+        
         initNavBar();
         fetchNavHeaderInfo();
-
-        //Get Google Account Information
-        //getGoogleAccountInfo();
+      }
+      
+      @Override
+      public void onCancelled(@NonNull DatabaseError error) {
+      
+      }
+    });
+  }
+  
+  
+  private void signOut() {
+    mGoogleSignInClient.signOut()
+                       .addOnCompleteListener(this, task -> Toast.makeText(MapsActivity.this, "Sign Out Successful",
+                                                                           Toast.LENGTH_SHORT));
+  }
+  
+  @Override
+  public void initNavBar() {
+    navViewId.bringToFront();
+    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayoutId, R.string.open, R.string.close);
+    drawerLayoutId.addDrawerListener(toggle);
+    toggle.syncState();
+    navViewId.setNavigationItemSelectedListener(this);
+    navViewId.setCheckedItem(R.id.nav_map);
+  }
+  
+  /**
+   * Fetches user's data and display in nav's header.
+   */
+  @Override
+  public void fetchNavHeaderInfo() {
+    if (currentUser == null) {
+      return;
     }
-
-    public void getGoogleAccountInfo() {
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean exists = false;
-
-                for (DataSnapshot d : snapshot.getChildren()) {
-                    if (d.getKey().equals(account.getId())) {
-                        currentUser = account.getId();
-                        exists = true;
-                    }
-                    //Toast.makeText(MainActivity.this, "" + d.getKey(), Toast.LENGTH_SHORT).show();
-                }
-                if (!exists) {
-                    User user = new User(account.getGivenName(), account.getFamilyName(), account.getGivenName() + account.getFamilyName() + "123", account.getEmail(), "", account.getPhotoUrl().toString());
-                    FirebaseDatabase.getInstance().getReference("users").child(account.getId()).setValue(user);
-                    currentUser = account.getId();
-                }
-                initNavBar();
-                fetchNavHeaderInfo();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+    
+    mDatabaseRef = FirebaseDatabase.getInstance().getReference("users");
+    mDatabaseRef.child(currentUser).addListenerForSingleValueEvent(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot snapshot) {
+        String fName = String.valueOf(snapshot.child("fName").getValue());
+        String lName = String.valueOf(snapshot.child("lName").getValue());
+        tvNavHeaderName.setText(fName + " " + lName);
+        Picasso.get().load(String.valueOf(snapshot.child("imageUrl").getValue())).into(navHeaderPfp);
+      }
+      
+      @Override
+      public void onCancelled(@NonNull DatabaseError error) {
+      
+      }
+    });
+  }
+  
+  /**
+   * Navigation bar switch activity.
+   *
+   * @param item menu item being selected.
+   * @return true when navigation bar is in focus.
+   */
+  @Override
+  public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    //open activities for the rest of nav items
+    switch (item.getItemId()) {
+      case R.id.nav_profile:
+        Intent profileIntent = new Intent(this, ProfileActivity.class);
+        profileIntent.putExtra("username", currentUser);
+        startActivity(profileIntent);
+        break;
+      
+      case R.id.nav_favorites:
+        Intent favoriteIntent = new Intent(this, FavoriteListActivity.class);
+        favoriteIntent.putExtra("username", currentUser);
+        startActivity(favoriteIntent);
+        break;
+      
+      case R.id.nav_signOut:
+        startActivity(new Intent(this, MainActivity.class));
+        signOut();
+        finish();
+        break;
     }
-
-
-    private void signOut() {
-        mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> Toast.makeText(MapsActivity.this, "Sign Out Successful", Toast.LENGTH_SHORT));
+    drawerLayoutId.closeDrawer(GravityCompat.START);
+    return true;
+  }
+  
+  
+  /**
+   * App will not close when back button is press when nav is in focus.
+   */
+  @Override
+  public void onBackPressed() {
+    if (drawerLayoutId.isDrawerOpen(GravityCompat.START)) {
+      drawerLayoutId.closeDrawer(GravityCompat.START);
+    } else {
+      super.onBackPressed();
     }
-
-    @Override
-    public void initNavBar() {
-        navViewId.bringToFront();
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayoutId, R.string.open, R.string.close);
-        drawerLayoutId.addDrawerListener(toggle);
-        toggle.syncState();
-        navViewId.setNavigationItemSelectedListener(this);
-        navViewId.setCheckedItem(R.id.nav_map);
-    }
-
-    /**
-     * Fetches user's data and display in nav's header.
-     */
-    @Override
-    public void fetchNavHeaderInfo() {
-        if (currentUser == null) {
-            return;
+  }
+  
+  /**
+   * Manipulates the map once available.
+   */
+  @Override
+  public void onMapReady(GoogleMap googleMap) {
+    mMap = googleMap;
+    
+    //TODO: get device's location
+    //moving camera to montreal
+    LatLng montreal = new LatLng(45.4774675, -73.6080016);
+    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(montreal, 13.4f));
+    
+    //get shops from json
+    getShops();
+  }
+  
+  /**
+   * Fetch shops from json file
+   */
+  private void getShops() {
+    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.npoint.io/")
+                                              .addConverterFactory(GsonConverterFactory.create())
+                                              .build();
+    ShopJsonPlaceHolder shopJsonPlaceHolder = retrofit.create(ShopJsonPlaceHolder.class);
+    Call<List<ShopJsonObj>> call = shopJsonPlaceHolder.getShopJsonPlaceHolder();
+    call.enqueue(new Callback<List<ShopJsonObj>>() {
+      @Override
+      public void onResponse(Call<List<ShopJsonObj>> call, Response<List<ShopJsonObj>> response) {
+        if (!response.isSuccessful()) {
+          return;
         }
-
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("users");
-        mDatabaseRef.child(currentUser).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String fName = String.valueOf(snapshot.child("fName").getValue());
-                String lName = String.valueOf(snapshot.child("lName").getValue());
-                tvNavHeaderName.setText(fName + " " + lName);
-                Picasso.get().load(String.valueOf(snapshot.child("imageUrl").getValue())).into(navHeaderPfp);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    /**
-     * Navigation bar switch activity.
-     *
-     * @param item menu item being selected.
-     * @return true when navigation bar is in focus.
-     */
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        //open activities for the rest of nav items
-        switch (item.getItemId()) {
-            case R.id.nav_profile:
-                Intent profileIntent = new Intent(this, ProfileActivity.class);
-                profileIntent.putExtra("username", currentUser);
-                startActivity(profileIntent);
-                break;
-
-            case R.id.nav_favorites:
-                Intent favoriteIntent = new Intent(this, FavoriteListActivity.class);
-                favoriteIntent.putExtra("username", currentUser);
-                startActivity(favoriteIntent);
-                break;
-
-            case R.id.nav_signOut:
-                startActivity(new Intent(this, MainActivity.class));
-                signOut();
-                finish();
-                break;
+        
+        //storing locations in jsonObjectsList
+        shopJsonObjsList = response.body();
+        
+        //adding markers of shops
+        for (ShopJsonObj currShop : shopJsonObjsList) {
+          mMap.addMarker(new MarkerOptions()
+                             .position(new LatLng(Double.parseDouble(currShop.getLatitude()),
+                                                  Double.parseDouble(currShop.getLongitude())))
+                             .title(currShop.getType())
+                             .icon(getBitmapDescriptorFromVector(getApplicationContext(), getVectorId(currShop.getType()))));
         }
-        drawerLayoutId.closeDrawer(GravityCompat.START);
-        return true;
+        
+        //display shops in rvShopsListId
+        displayShops();
+      }
+      
+      @Override
+      public void onFailure(Call<List<ShopJsonObj>> call, Throwable t) {
+      
+      }
+    });
+  }
+  
+  /**
+   * Display shops in recycler view
+   */
+  private void displayShops() {
+    ShopAdapter shopAdapter = new ShopAdapter(this, shopJsonObjsList, currentUser);
+    rvShopsListId.setLayoutManager(new LinearLayoutManager(this));
+    rvShopsListId.setAdapter(shopAdapter);
+  }
+  
+  /**
+   * Returns a different vector based on what shop it is.
+   *
+   * @param type type of shop as string.
+   * @return a different vector based on what shop it is.
+   */
+  private int getVectorId(String type) {
+    int id = 0;
+    
+    switch (type.toUpperCase()) {
+      case "STARBUCKS":
+        id = R.drawable.ic_starbucks_marker;
+        break;
+      case "TIM HORTONS":
+        id = R.drawable.ic_tim_hortons_marker;
+        break;
+      case "DUNKIN DONUTS":
+        id = R.drawable.ic_dunkin_donuts_marker;
+        break;
+      case "SECOND CUP":
+        // TODO: find second cup svg marker
+        id = R.drawable.ic_dunkin_donuts_marker;
+        break;
     }
-
-
-    /**
-     * App will not close when back button is press when nav is in focus.
-     */
-    @Override
-    public void onBackPressed() {
-        if (drawerLayoutId.isDrawerOpen(GravityCompat.START)) {
-            drawerLayoutId.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    /**
-     * Manipulates the map once available.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        //TODO: get device's location
-        //moving camera to montreal
-        LatLng montreal = new LatLng(45.4774675, -73.6080016);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(montreal, 13.4f));
-
-        //get shops from json
-        getShops();
-    }
-
-    /**
-     * Fetch shops from json file
-     */
-    private void getShops() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.npoint.io/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ShopJsonPlaceHolder shopJsonPlaceHolder = retrofit.create(ShopJsonPlaceHolder.class);
-        Call<List<ShopJsonObj>> call = shopJsonPlaceHolder.getShopJsonPlaceHolder();
-        call.enqueue(new Callback<List<ShopJsonObj>>() {
-            @Override
-            public void onResponse(Call<List<ShopJsonObj>> call, Response<List<ShopJsonObj>> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
-
-                //storing locations in jsonObjectsList
-                shopJsonObjsList = response.body();
-
-                //adding markers of shops
-                for (ShopJsonObj currShop : shopJsonObjsList) {
-                    mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(Double.parseDouble(currShop.getLatitude()),
-                                    Double.parseDouble(currShop.getLongitude())))
-                            .title(currShop.getType())
-                            .icon(getBitmapDescriptorFromVector(getApplicationContext(), getVectorId(currShop.getType()))));
-                }
-
-                //display shops in rvShopsListId
-                displayShops();
-            }
-
-            @Override
-            public void onFailure(Call<List<ShopJsonObj>> call, Throwable t) {
-
-            }
-        });
-    }
-
-    /**
-     * Display shops in recycler view
-     */
-    private void displayShops() {
-        ShopAdapter shopAdapter = new ShopAdapter(this, shopJsonObjsList, currentUser);
-        rvShopsListId.setLayoutManager(new LinearLayoutManager(this));
-        rvShopsListId.setAdapter(shopAdapter);
-    }
-
-    /**
-     * Returns a different vector based on what shop it is.
-     *
-     * @param type type of shop as string.
-     * @return a different vector based on what shop it is.
-     */
-    private int getVectorId(String type) {
-        int id = 0;
-
-        switch (type.toUpperCase()) {
-            case "STARBUCKS":
-                id = R.drawable.ic_starbucks_marker;
-                break;
-            case "TIM HORTONS":
-                id = R.drawable.ic_tim_hortons_marker;
-                break;
-            case "DUNKIN DONUTS":
-                id = R.drawable.ic_dunkin_donuts_marker;
-                break;
-            case "SECOND CUP":
-                // TODO: find second cup svg marker
-                id = R.drawable.ic_dunkin_donuts_marker;
-                break;
-        }
-        return id;
-    }
-
-    /**
-     * Converts a vector into a BitmapDescriptor for google maps to use.
-     *
-     * @param context     application context
-     * @param vectorResId vector resource id
-     * @return A bitmapDescriptor of the vector.
-     */
-    private BitmapDescriptor getBitmapDescriptorFromVector(Context context, int vectorResId) {
-        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
-        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
-
-        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
-                vectorDrawable.getIntrinsicHeight(),
-                Bitmap.Config.ARGB_8888);
-
-        Canvas canvas = new Canvas(bitmap);
-        vectorDrawable.draw(canvas);
-
-        return BitmapDescriptorFactory.fromBitmap(bitmap);
-    }
+    return id;
+  }
+  
+  /**
+   * Converts a vector into a BitmapDescriptor for google maps to use.
+   *
+   * @param context     application context
+   * @param vectorResId vector resource id
+   * @return A bitmapDescriptor of the vector.
+   */
+  private BitmapDescriptor getBitmapDescriptorFromVector(Context context, int vectorResId) {
+    Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+    vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+    
+    Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                                        vectorDrawable.getIntrinsicHeight(),
+                                        Bitmap.Config.ARGB_8888);
+    
+    Canvas canvas = new Canvas(bitmap);
+    vectorDrawable.draw(canvas);
+    
+    return BitmapDescriptorFactory.fromBitmap(bitmap);
+  }
 }
