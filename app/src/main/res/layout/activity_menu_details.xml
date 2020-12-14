@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingVertical="5dp"
-    tools:context=".MenuDetailsActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:paddingVertical="5dp"
+  tools:context=".MenuDetailsActivity">
 
-  <de.hdodenhof.circleimageview.CircleImageView
+  <ImageView
+    android:id="@+id/ivNavToolbar"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:srcCompat="@drawable/ic_back_arrow_icon" />
+
+  <RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
       android:id="@+id/ivFoodImageId"
       android:layout_width="180dp"
       android:layout_height="230dp"
@@ -16,7 +27,7 @@
       android:background="@color/blue3"
       android:scaleType="centerCrop" />
 
-  <TextView
+    <TextView
       android:id="@+id/tvNameId"
       android:layout_width="180dp"
       android:layout_height="wrap_content"
@@ -33,7 +44,7 @@
       android:textSize="16sp"
       android:textStyle="bold" />
 
-  <LinearLayout
+    <LinearLayout
       android:id="@+id/SMLBtns"
       android:layout_width="180dp"
       android:layout_height="wrap_content"
@@ -43,8 +54,8 @@
       android:orientation="vertical"
       android:padding="5dp">
 
-    <!--  small btn  -->
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+      <!--  small btn  -->
+      <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/smallBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,8 +71,8 @@
         app:backgroundTint="@color/btnOrange"
         app:rippleColor="@color/menuColorAccent" />
 
-    <!--    medium btn  -->
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+      <!--    medium btn  -->
+      <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/mediumBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -76,8 +87,8 @@
         android:textColor="#fff"
         app:backgroundTint="@color/menuColorPrimaryDark"/>
 
-    <!--    large btn  -->
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+      <!--    large btn  -->
+      <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/largeBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,16 +103,16 @@
         android:textAllCaps="false"
         android:textColor="#fff"
         app:backgroundTint="@color/menuColorPrimaryDark"/>
-  </LinearLayout>
+    </LinearLayout>
 
-  <LinearLayout
+    <LinearLayout
       android:layout_width="230dp"
       android:layout_height="wrap_content"
       android:layout_alignParentRight="true"
       android:orientation="vertical"
       android:padding="5dp">
 
-    <TextView
+      <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/nutInfo"
@@ -109,7 +120,7 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <TextView
+      <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -117,42 +128,42 @@
         android:textSize="14sp"
         android:textStyle="italic" />
 
-    <!--  Serving Size  -->
-    <LinearLayout
+      <!--  Serving Size  -->
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp">
 
-      <TextView
+        <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/survingSize"
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
 
-      <TextView
+        <TextView
           android:id="@+id/tvServingSizeId"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="16 oz"
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
-    </LinearLayout>
+      </LinearLayout>
 
-    <View
+      <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginTop="10dp"
         android:background="#B3B3B3" />
 
-    <!--  Calories  -->
-    <LinearLayout
+      <!--  Calories  -->
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="2dp">
 
-      <TextView
+        <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/cals"
@@ -160,28 +171,28 @@
           android:textSize="15sp"
           android:textStyle="bold" />
 
-      <TextView
+        <TextView
           android:id="@+id/tvCaloriesId"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="520"
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
-    </LinearLayout>
+      </LinearLayout>
 
-    <View
+      <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="5dp"
         android:background="#CCCCCC" />
 
-    <!--  Total Fats  -->
-    <LinearLayout
+      <!--  Total Fats  -->
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="2dp">
 
-      <TextView
+        <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/totalFat"
@@ -189,84 +200,84 @@
           android:textSize="15sp"
           android:textStyle="bold" />
 
-      <TextView
+        <TextView
           android:id="@+id/tvTotalFatsId"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="19 g"
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
-    </LinearLayout>
+      </LinearLayout>
 
-    <View
+      <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="5dp"
         android:background="#CCCCCC" />
 
-    <!--  Saturated Fats  -->
-    <LinearLayout
+      <!--  Saturated Fats  -->
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="2dp">
 
-      <TextView
+        <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="&#160;&#160;&#160;Saturated Fats  "
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
 
-      <TextView
+        <TextView
           android:id="@+id/tvSaturatedFatsId"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="13 g"
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
-    </LinearLayout>
+      </LinearLayout>
 
-    <View
+      <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="5dp"
         android:background="#CCCCCC" />
 
-    <!--  Trans Fats  -->
-    <LinearLayout
+      <!--  Trans Fats  -->
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="2dp">
 
-      <TextView
+        <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="&#160;&#160;&#160;Trans Fats "
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
 
-      <TextView
+        <TextView
           android:id="@+id/tvTransFatsId"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="0.5 g"
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
-    </LinearLayout>
+      </LinearLayout>
 
-    <View
+      <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="5dp"
         android:background="#CCCCCC" />
 
-    <!--  Cholesterol  -->
-    <LinearLayout
+      <!--  Cholesterol  -->
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="2dp">
 
-      <TextView
+        <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/cholesterol"
@@ -274,28 +285,28 @@
           android:textSize="15sp"
           android:textStyle="bold" />
 
-      <TextView
+        <TextView
           android:id="@+id/tvCholesterolId"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="50 mg"
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
-    </LinearLayout>
+      </LinearLayout>
 
-    <View
+      <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="5dp"
         android:background="#CCCCCC" />
 
-    <!--  Sodium  -->
-    <LinearLayout
+      <!--  Sodium  -->
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="2dp">
 
-      <TextView
+        <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/sodium"
@@ -303,28 +314,28 @@
           android:textSize="15sp"
           android:textStyle="bold" />
 
-      <TextView
+        <TextView
           android:id="@+id/tvSodiumId"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="260 mg"
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
-    </LinearLayout>
+      </LinearLayout>
 
-    <View
+      <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="5dp"
         android:background="#CCCCCC" />
 
-    <!--  Total Carbohydrates  -->
-    <LinearLayout
+      <!--  Total Carbohydrates  -->
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="2dp">
 
-      <TextView
+        <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/totalCarb"
@@ -332,84 +343,84 @@
           android:textSize="15sp"
           android:textStyle="bold" />
 
-      <TextView
+        <TextView
           android:id="@+id/tvTotalCarbohydrateId"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="75 g"
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
-    </LinearLayout>
+      </LinearLayout>
 
-    <View
+      <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="5dp"
         android:background="#CCCCCC" />
 
-    <!--  Dietary Fiber  -->
-    <LinearLayout
+      <!--  Dietary Fiber  -->
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="2dp">
 
-      <TextView
+        <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="&#160;&#160;&#160;Dietary Fiber  "
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
 
-      <TextView
+        <TextView
           android:id="@+id/tvFiberId"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="0 g"
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
-    </LinearLayout>
+      </LinearLayout>
 
-    <View
+      <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="5dp"
         android:background="#CCCCCC" />
 
-    <!--  Sugar  -->
-    <LinearLayout
+      <!--  Sugar  -->
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="2dp">
 
-      <TextView
+        <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="&#160;&#160;&#160;Sugar  "
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
 
-      <TextView
+        <TextView
           android:id="@+id/tvSugarId"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="74 g"
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
-    </LinearLayout>
+      </LinearLayout>
 
-    <View
+      <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="5dp"
         android:background="#CCCCCC" />
 
-    <!--  Protein  -->
-    <LinearLayout
+      <!--  Protein  -->
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="2dp">
 
-      <TextView
+        <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/protein"
@@ -417,28 +428,28 @@
           android:textSize="15sp"
           android:textStyle="bold" />
 
-      <TextView
+        <TextView
           android:id="@+id/tvProteinId"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="15 g"
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
-    </LinearLayout>
+      </LinearLayout>
 
-    <View
+      <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="5dp"
         android:background="#CCCCCC" />
 
-    <!--  Caffeine  -->
-    <LinearLayout
+      <!--  Caffeine  -->
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="2dp">
 
-      <TextView
+        <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/caff"
@@ -446,19 +457,20 @@
           android:textSize="15sp"
           android:textStyle="bold" />
 
-      <TextView
+        <TextView
           android:id="@+id/tvCaffeineId"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="0 mg"
           android:textColor="@color/menuColorBlack"
           android:textSize="15sp" />
-    </LinearLayout>
+      </LinearLayout>
 
-    <View
+      <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="5dp"
         android:background="#CCCCCC" />
-  </LinearLayout>
-</RelativeLayout>
+    </LinearLayout>
+  </RelativeLayout>
+</LinearLayout>

@@ -1,11 +1,5 @@
 package com.example.androidfinalprojectcoffeeapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,22 +9,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.material.navigation.NavigationView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.view.GravityCompat;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ShopDetailsActivity extends SideNavigationBar {
   
   private String currUser;
   private ShopJsonObj mShop;
   
-  private ImageView ivShopImageId, isFav;
+  private ImageView ivShopImageId, isFav, ivNavToolbar;
   private TextView tvTypeId, tvAddressId, tvPhoneId, tvIsHeartCheckedId;
   Button btnSeeMenuId;
   
@@ -45,6 +39,7 @@ public class ShopDetailsActivity extends SideNavigationBar {
     
     //link views
     ivShopImageId = findViewById(R.id.ivShopImageId);
+    ivNavToolbar = findViewById(R.id.ivNavToolbar);
     tvTypeId = findViewById(R.id.tvTypeId);
     tvAddressId = findViewById(R.id.tvAddressId);
     tvPhoneId = findViewById(R.id.tvPhoneId);
@@ -59,6 +54,7 @@ public class ShopDetailsActivity extends SideNavigationBar {
     tvNavHeaderName = navHeader.findViewById(R.id.nav_header_name);
     navHeaderPfp = navHeader.findViewById(R.id.nav_header_profile_pic);
     
+    ivNavToolbar.setOnClickListener(view -> super.onBackPressed());
     //init nav bar
     initNavBar();
     fetchNavHeaderInfo();
@@ -168,27 +164,24 @@ public class ShopDetailsActivity extends SideNavigationBar {
     tvTypeId.setText(mShop.getType());
     
     //set address
-    tvAddressId.setText(getResources().getString(R.string.address) + " : "  + mShop.getAddress());
+    tvAddressId.setText(getResources().getString(R.string.address) + " : " + mShop.getAddress());
     
     //set phone number
-    tvPhoneId.setText(getResources().getString(R.string.phone)+" : " + mShop.getPhoneNumber());
+    tvPhoneId.setText(getResources().getString(R.string.phone) + " : " + mShop.getPhoneNumber());
     
     //set tvIsHeartCheckedId
     //tvIsHeartCheckedId.setText(mShop.isHeartChecked() + "");
-    if(!mShop.isHeartChecked()){
+    if (!mShop.isHeartChecked()) {
       isFav.setImageResource(R.drawable.ic_heart_uncolored);
       tvIsHeartCheckedId.setText(getResources().getString(R.string.not_added_to_favorites));
     }
-    if(mShop.getType().equals("Tim Hortons")){
+    if (mShop.getType().equals("Tim Hortons")) {
       tvTypeId.setTextColor(Color.RED);
-    }
-    else if(mShop.getType().equals("DunkinDonuts")){
-      tvTypeId.setTextColor(Color.rgb(255,190,0));
-    }
-    else if(mShop.getType().equals("Starbucks")){
+    } else if (mShop.getType().equals("DunkinDonuts")) {
+      tvTypeId.setTextColor(Color.rgb(255, 190, 0));
+    } else if (mShop.getType().equals("Starbucks")) {
       tvTypeId.setTextColor(Color.GREEN);
-    }
-    else {
+    } else {
       tvTypeId.setTextColor(Color.YELLOW);
     }
     

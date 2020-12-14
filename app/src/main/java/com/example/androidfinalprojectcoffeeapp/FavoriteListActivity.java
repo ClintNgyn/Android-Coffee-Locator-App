@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,20 +33,23 @@ public class FavoriteListActivity extends SideNavigationBar {
   private String currentUser;
   private String fName, lName;
   private RecyclerView recyclerView;
+  private ImageView ivNavToolbar;
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_favorite_list);
-    
+  
     //connect recycler view
     recyclerView = findViewById(R.id.favoriteRecyclerView);
-    
+    ivNavToolbar = findViewById(R.id.ivNavToolbar);
+    ivNavToolbar.setOnClickListener(view -> drawerLayoutId.openDrawer(GravityCompat.START));
+  
     //get current user
     Intent intent = getIntent();
     currentUser = intent.getStringExtra("username");
     changeHeaderInfo();
-    
+  
     // Configure sign-in to request the user's ID, email address, and basic
     // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -202,11 +206,18 @@ public class FavoriteListActivity extends SideNavigationBar {
         startActivity(mapIntent);
         finish();
         break;
-      
+  
       case R.id.nav_signOut:
         startActivity(new Intent(this, MainActivity.class));
         signOut();
         finish();
+        break;
+  
+      case R.id.nav_about:
+        String m = "This app allows different users to view coffee stores near by, users can add their favorite coffee store so" +
+                   " that he\\she can get their favorite cup of coffee as soon as possible";
+    
+        Toast.makeText(this, m, Toast.LENGTH_LONG).show();
         break;
     }
     drawerLayoutId.closeDrawer(GravityCompat.START);

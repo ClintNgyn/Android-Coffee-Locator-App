@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -41,7 +42,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,6 +63,7 @@ public class MapsActivity extends SideNavigationBar
   
   private RecyclerView rvShopsListId;
   private RelativeLayout mapRL;
+  private ImageView ivNavToolbar, ivCurrLocationBtn;
   
   
   @Override
@@ -73,6 +74,8 @@ public class MapsActivity extends SideNavigationBar
     //link views
     rvShopsListId = findViewById(R.id.rvShopsListId);
     mapRL = findViewById(R.id.mapRL);
+    ivNavToolbar = findViewById(R.id.ivNavToolbar);
+    ivCurrLocationBtn = findViewById(R.id.ivCurrLocationBtn);
     
     //from SideNavigationBar abstract class
     drawerLayoutId = findViewById(R.id.maps_drawerlayout);
@@ -80,6 +83,14 @@ public class MapsActivity extends SideNavigationBar
     navHeader = navViewId.getHeaderView(0);
     tvNavHeaderName = navHeader.findViewById(R.id.nav_header_name);
     navHeaderPfp = navHeader.findViewById(R.id.nav_header_profile_pic);
+    
+    ivNavToolbar.setOnClickListener(view -> {
+      drawerLayoutId.openDrawer(GravityCompat.START);
+    });
+    
+    ivCurrLocationBtn.setOnClickListener(view -> {
+      zoomToCurrLocation();
+    });
     
     // Configure sign-in to request the user's ID, email address, and basic
     // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -209,12 +220,21 @@ public class MapsActivity extends SideNavigationBar
         favoriteIntent.putExtra("username", currentUser);
         startActivity(favoriteIntent);
         break;
-      
+  
       case R.id.nav_signOut:
         startActivity(new Intent(this, MainActivity.class));
         signOut();
         finish();
         break;
+  
+      case R.id.nav_about:
+        String m = "This app allows different users to view coffee stores near by, users can add their favorite coffee store so" +
+                   " that he\\she can get their favorite cup of coffee as soon as possible";
+    
+        Toast.makeText(this, m, Toast.LENGTH_LONG).show();
+        break;
+  
+  
     }
     drawerLayoutId.closeDrawer(GravityCompat.START);
     return true;
@@ -238,18 +258,6 @@ public class MapsActivity extends SideNavigationBar
    */
   @Override
   public void onMapReady(GoogleMap googleMap) {
-    //set location btn
-    //TODO: fix this - button behind map fragment
-    CircleImageView civ = new CircleImageView(this);
-    civ.setOnClickListener(view -> zoomToCurrLocation());
-  
-    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(50, 50);
-    params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-    params.setMargins(20, 20, 20, 20);
-  
-    civ.setLayoutParams(params);
-    mapRL.addView(civ);
-  
     mMap = googleMap;
   
     //set and get location
@@ -295,12 +303,12 @@ public class MapsActivity extends SideNavigationBar
           String type = currShop.getType();
           double currLat = Double.parseDouble(currShop.getLatitude());
           double currLng = Double.parseDouble(currShop.getLongitude());
-    
+  
           //marker
           mMap.addMarker(new MarkerOptions().position(new LatLng(currLat, currLng))
                                             .title(type)
                                             .icon(getBitmapDescriptorFromVector(getApplicationContext(), getVectorId(type))));
-    
+  
           //find distance from current location
           currShop.setDistance(Math.ceil(
               haverineFormula(CURR_LOCATION.latitude, CURR_LOCATION.longitude, currLat, currLng))

@@ -138,46 +138,46 @@
 
     <View
         android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="2.5dp"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/divder_gradient"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUpButton" />
+      android:layout_width="match_parent"
+      android:layout_height="2.5dp"
+      android:layout_marginHorizontal="10dp"
+      android:layout_marginTop="25dp"
+      android:background="@drawable/divder_gradient"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/signUpButton" />
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/forgetPasswordTextView"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:shadowColor="#F2000000"-->
+    <!--        android:shadowDx="2"-->
+    <!--        android:shadowDy="2"-->
+    <!--        android:shadowRadius="1"-->
+    <!--        android:text="Forgot Password?"-->
+    <!--        android:textColor="#f3f3f3"-->
+    <!--        android:textSize="12sp"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/passwordInput"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/passwordInput" />-->
 
     <TextView
-        android:id="@+id/forgetPasswordTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:shadowColor="#F2000000"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="1"
-        android:text="Forgot Password?"
-        android:textColor="#f3f3f3"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/passwordInput"
-        app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
-
-    <TextView
-        android:id="@+id/orSignInWithText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:shadowColor="#F2000000"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="1"
-        android:text="@string/signInWith"
-        android:textColor="#f3f3f3"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/forgetPasswordTextView"
-        tools:layout_editor_absoluteX="156dp" />
+      android:id="@+id/orSignInWithText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="7dp"
+      android:gravity="center"
+      android:shadowColor="#F2000000"
+      android:shadowDx="2"
+      android:shadowDy="2"
+      android:shadowRadius="1"
+      android:text="@string/signInWith"
+      android:textColor="#f3f3f3"
+      android:textSize="14sp"
+      app:layout_constraintTop_toBottomOf="@+id/passwordInput"
+      tools:layout_editor_absoluteX="156dp" />
 
 
     <ImageView

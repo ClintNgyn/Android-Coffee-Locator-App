@@ -3,10 +3,10 @@ package com.example.androidfinalprojectcoffeeapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MenuActivity extends SideNavigationBar {
   
   private RecyclerView rvMenuListId;
+  private ImageView ivNavToolbar;
   
   private List<MenuJsonObj> menuJsonObjsList = new ArrayList<>();
   private String mShopType, currUser;
@@ -37,14 +38,16 @@ public class MenuActivity extends SideNavigationBar {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_menu);
-    
+  
     //get intent data from ShopDetails Activity
     mShopType = getIntent().getStringExtra("mShopType");
     currUser = getIntent().getStringExtra("username");
-    
+  
     //link rvMenuListId
     rvMenuListId = findViewById(R.id.rvMenuListId);
-    
+    ivNavToolbar = findViewById(R.id.ivNavToolbar);
+    ivNavToolbar.setOnClickListener(view -> super.onBackPressed());
+  
     //from SideNavigationBar abstract class
     drawerLayoutId = findViewById(R.id.drawLayoutId);
     navViewId = findViewById(R.id.navViewId);

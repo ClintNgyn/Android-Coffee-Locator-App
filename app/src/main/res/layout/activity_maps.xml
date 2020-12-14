@@ -7,22 +7,47 @@
   android:layout_height="match_parent">
 
   <LinearLayout
+    android:id="@+id/LLLLL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="35dp"
+      android:layout_marginVertical="3dp"
+      android:gravity="center_vertical"
+      android:paddingHorizontal="3dp">
+
+      <ImageView
+        android:id="@+id/ivNavToolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_navi_icon" />
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/coffeeLocator"
+        android:textColor="@color/menuColorBlack"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+      <ImageView
+        android:id="@+id/ivCurrLocationBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        app:srcCompat="@drawable/ic_my_location_btn" />
+    </RelativeLayout>
 
     <RelativeLayout
       android:id="@+id/mapRL"
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1">
-
-      <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/myLocationBtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_margin="20dp" />
 
       <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
@@ -36,7 +61,7 @@
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_weight="1"
+      android:layout_weight=".9"
       android:orientation="vertical">
 
       <TextView

@@ -17,19 +17,40 @@
         app:menu="@menu/side_nav_menu"
         tools:operDrawer="start" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
+        <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="35dp"
+          android:layout_marginVertical="3dp"
+          android:gravity="center_vertical"
+          android:paddingHorizontal="3dp">
+
+            <ImageView
+              android:id="@+id/ivNavToolbar"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              app:srcCompat="@drawable/ic_navi_icon" />
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerHorizontal="true"
+              android:text="@string/coffeeLocator"
+              android:textColor="@color/menuColorBlack"
+              android:textSize="20sp"
+              android:textStyle="bold" />
+
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/favoriteRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+          android:layout_height="wrap_content"
+          android:id="@+id/favoriteRecyclerView"
+          android:layout_width="match_parent"
+          android:layout_marginTop="10dp" />
+    </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

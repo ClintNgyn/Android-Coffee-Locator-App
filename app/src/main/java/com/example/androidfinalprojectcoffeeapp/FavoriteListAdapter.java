@@ -14,20 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapter.ViewHolder> {
-    private Context context;
-    private List<ShopJsonObj> favoriteList;
-    private String currentUser;
-
+    private final Context context;
+    private final List<ShopJsonObj> favoriteList;
+    private final String currentUser;
+    
     public FavoriteListAdapter(Context context, List<ShopJsonObj> favoriteList, String currentUser) {
         this.context = context;
         this.favoriteList = favoriteList;
         this.currentUser = currentUser;
     }
-
+    
     @NonNull
     @Override
     public FavoriteListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,7 +47,6 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapte
         
         //trash icon onclick handler
         holder.ivTrashId.setOnClickListener(view -> {
-            //TODO: @Dennis
             currShop.setHeartChecked(false);
             FirebaseDatabase.getInstance().getReference("favorites").child(currentUser).child(currShop.getPhoneNumber()).removeValue();
             //multiple toogles still happen this is a quick fix
@@ -60,7 +58,7 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapte
     }
     private void openShopDetailsActivity(ShopJsonObj currShop) {
         Intent i = new Intent(context, ShopDetailsActivity.class);
-        i.putExtra("currShop", (Serializable) currShop);
+        i.putExtra("currShop", currShop);
         context.startActivity(i);
     }
 
@@ -68,16 +66,18 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapte
     public int getItemCount() {
         return favoriteList.size();
     }
-
+    
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView favoriteListCardView;
-        private TextView favoriteType, favoriteAddressId;
-        private ImageView favoriteListInfoButton ,ivTrashId;
+        private final CardView favoriteListCardView;
+        private final TextView favoriteType;
+        private final TextView favoriteAddressId;
+        private final ImageView favoriteListInfoButton;
+        private final ImageView ivTrashId;
         
         
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-    
+            
             favoriteListCardView = itemView.findViewById(R.id.favoriteListCardView);
             favoriteType = itemView.findViewById(R.id.favoriteTypeId);
             favoriteAddressId = itemView.findViewById(R.id.favoriteAddressId);

@@ -1,16 +1,12 @@
 package com.example.androidfinalprojectcoffeeapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.Circle;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -23,7 +19,7 @@ public class MenuDetailsActivity extends AppCompatActivity {
   private TextView tvNameId, tvServingSizeId, tvCaloriesId, tvTotalFatsId, tvSaturatedFatsId, tvTransFatsId, tvCholesterolId,
       tvSodiumId,
       tvTotalCarbohydrateId, tvFiberId, tvSugarId, tvProteinId, tvCaffeineId;
-  
+  private ImageView ivNavToolbar;
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -88,10 +84,12 @@ public class MenuDetailsActivity extends AppCompatActivity {
     smallBtn = findViewById(R.id.smallBtn);
     mediumBtn = findViewById(R.id.mediumBtn);
     largeBtn = findViewById(R.id.largeBtn);
-    
+  
     //ImageViews
     ivFoodImageId = findViewById(R.id.ivFoodImageId);
-    
+    ivNavToolbar = findViewById(R.id.ivNavToolbar);
+    ivNavToolbar.setOnClickListener(view -> super.onBackPressed());
+  
     //TextViews
     tvNameId = findViewById(R.id.tvNameId);
     tvServingSizeId = findViewById(R.id.tvServingSizeId);
