@@ -7,6 +7,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +30,7 @@ public class ShopDetailsActivity extends SideNavigationBar {
   private String currUser;
   private ShopJsonObj mShop;
   
-  private ImageView ivShopImageId;
+  private ImageView ivShopImageId, isFav;
   private TextView tvTypeId, tvAddressId, tvPhoneId, tvIsHeartCheckedId;
   Button btnSeeMenuId;
   
@@ -50,7 +51,7 @@ public class ShopDetailsActivity extends SideNavigationBar {
     tvPhoneId = findViewById(R.id.tvPhoneId);
     tvIsHeartCheckedId = findViewById(R.id.tvIsHeartCheckedId);
     btnSeeMenuId = findViewById(R.id.btnSeeMenuId);
-    
+    isFav = findViewById(R.id.shop_details_favorite);
     //from SideNavigationBar abstract class
     drawerLayoutId = findViewById(R.id.drawLayoutId);
     navViewId = findViewById(R.id.navViewId);
@@ -167,13 +168,29 @@ public class ShopDetailsActivity extends SideNavigationBar {
     tvTypeId.setText(mShop.getType());
     
     //set address
-    tvAddressId.setText(mShop.getAddress());
+    tvAddressId.setText(getResources().getString(R.string.address) + " : "  + mShop.getAddress());
     
     //set phone number
-    tvPhoneId.setText(mShop.getPhoneNumber());
+    tvPhoneId.setText(getResources().getString(R.string.phone)+" : " + mShop.getPhoneNumber());
     
     //set tvIsHeartCheckedId
-    tvIsHeartCheckedId.setText(mShop.isHeartChecked() + "");
+    //tvIsHeartCheckedId.setText(mShop.isHeartChecked() + "");
+    if(!mShop.isHeartChecked()){
+      isFav.setImageResource(R.drawable.ic_heart_uncolored);
+      tvIsHeartCheckedId.setText("Not added to favorites");
+    }
+    if(mShop.getType().equals("Tim Hortons")){
+      tvTypeId.setTextColor(Color.RED);
+    }
+    else if(mShop.getType().equals("DunkinDonuts")){
+      tvTypeId.setTextColor(Color.rgb(255,190,0));
+    }
+    else if(mShop.getType().equals("Starbucks")){
+      tvTypeId.setTextColor(Color.GREEN);
+    }
+    else {
+      tvTypeId.setTextColor(Color.YELLOW);
+    }
     
     //set see menu onclick handler
     btnSeeMenuId.setOnClickListener(new View.OnClickListener() {
