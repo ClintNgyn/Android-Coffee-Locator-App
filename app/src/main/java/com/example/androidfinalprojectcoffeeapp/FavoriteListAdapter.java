@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.Serializable;
@@ -38,12 +39,16 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapte
         ShopJsonObj currShop = favoriteList.get(position);
         holder.favoriteType.setText(currShop.getType());
         holder.favoriteAddressId.setText(currShop.getAddress());
-        holder.favoriteListInfoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openShopDetailsActivity(currShop);
-            }
+        
+        //shop detail activity onclick handler
+        holder.favoriteListCardView.setOnClickListener(view -> openShopDetailsActivity(currShop));
+        holder.favoriteListInfoButton.setOnClickListener(view -> openShopDetailsActivity(currShop));
+        
+        //trash icon onclick handler
+        holder.ivTrashId.setOnClickListener(view -> {
+            //TODO: @Dennis
         });
+        
     }
     private void openShopDetailsActivity(ShopJsonObj currShop) {
         Intent i = new Intent(context, ShopDetailsActivity.class);
@@ -57,15 +62,19 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView favoriteType;
-        TextView favoriteAddressId;
-        ImageView favoriteListInfoButton;
+        private CardView favoriteListCardView;
+        private TextView favoriteType, favoriteAddressId;
+        private ImageView favoriteListInfoButton ,ivTrashId;
+        
+        
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+    
+            favoriteListCardView = itemView.findViewById(R.id.favoriteListCardView);
             favoriteType = itemView.findViewById(R.id.favoriteTypeId);
             favoriteAddressId = itemView.findViewById(R.id.favoriteAddressId);
             favoriteListInfoButton = itemView.findViewById(R.id.favoriteListInfoButton);
+            ivTrashId = itemView.findViewById(R.id.ivTrashId);
         }
     }
 }
