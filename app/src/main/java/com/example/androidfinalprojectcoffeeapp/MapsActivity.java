@@ -66,12 +66,17 @@ public class MapsActivity extends SideNavigationBar
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         //get intent data from MainActivity
         currentUser = getIntent().getStringExtra("username");
+
+        if (currentUser == null) {
+            getGoogleAccountInfo();
+        }
 
         //link views
         rvShopsListId = findViewById(R.id.rvShopsListId);
@@ -88,23 +93,39 @@ public class MapsActivity extends SideNavigationBar
         fetchNavHeaderInfo();
 
         //Get Google Account Information
-        getGoogleAccountInfo();
+        //getGoogleAccountInfo();
     }
 
     public void getGoogleAccountInfo() {
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personGivenName = acct.getGivenName();
-            String personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
-            String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean exists = false;
 
-            tvNavHeaderName.setText(personGivenName + " " + personFamilyName);
-            Picasso.get().load(String.valueOf(personPhoto)).into(navHeaderPfp);
-        }
+                for (DataSnapshot d : snapshot.getChildren()) {
+                    if (d.getKey().equals(account.getId())) {
+                        currentUser = account.getId();
+                        exists = true;
+                    }
+                    //Toast.makeText(MainActivity.this, "" + d.getKey(), Toast.LENGTH_SHORT).show();
+                }
+                if (!exists) {
+                    User user = new User(account.getGivenName(), account.getFamilyName(), account.getGivenName() + account.getFamilyName() + "123", account.getEmail(), "", account.getPhotoUrl().toString());
+                    FirebaseDatabase.getInstance().getReference("users").child(account.getId()).setValue(user);
+                    currentUser = account.getId();
+                }
+                initNavBar();
+                fetchNavHeaderInfo();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
+
 
     private void signOut() {
         mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> Toast.makeText(MapsActivity.this, "Sign Out Successful", Toast.LENGTH_SHORT));

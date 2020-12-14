@@ -124,35 +124,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
             // Signed in successfully, show authenticated UI.
-            FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    boolean exists = false;
-                    for(DataSnapshot d: snapshot.getChildren()){
-                        if(d.getKey().equals(account.getEmail())){
-                            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                            intent.putExtra("username", account.getEmail());
-                            startActivity(intent);
-                            exists = true;
-                        }
-                        //Toast.makeText(MainActivity.this, "" + d.getKey(), Toast.LENGTH_SHORT).show();
-                    }
-                    if(exists){
-                        User user = new User(account.getGivenName(), account.getFamilyName(), account.getEmail(), account.getEmail(), "", account.getPhotoUrl().toString());
-                        FirebaseDatabase.getInstance().getReference("users").child(account.getEmail()).setValue(user);
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
             System.out.println(account.getEmail());
-
-//            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+            startActivity(intent);
 
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
